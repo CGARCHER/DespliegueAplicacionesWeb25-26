@@ -12,14 +12,14 @@ Su contenido se irá actualizando progresivamente a lo largo del curso, con el f
 
 ## Contenidos
 
-1. [Presentación](docs/00-presentacion/README.md)
-2. [Control de versiones y documentación](docs/01-control_versiones/README.md)
-3. [Introducción a la virtualización](docs/02-virtualizacion/README.md)
-4. [Arquitectura Web y Fundamentos del Despliegue](docs/03-arquitectura_web/README.md)
-5. [Despliegue de Páginas y Aplicaciones Web](docs/04-despliegue_aplicaciones/README.md)
-6. [Despliegue de Sistema de Transferencia de Ficheros](docs/05-ftp/README.md)
-7. [Verificación y Validación](docs/06-verificacion_validacion/README.md)
-8. [Integración y Despliegue Continuo](docs/07-integracion_continua/README.md)
+0. [Presentación](https://youtu.be/Uhl_dhag95k)
+1. [Control de versiones y documentación](docs/01-control_versiones/README.md)
+2. [Introducción a la virtualización](docs/02-virtualizacion/README.md)
+3. [Arquitectura Web y Fundamentos del Despliegue](docs/03-arquitectura_web/README.md)
+4. [Despliegue de Páginas y Aplicaciones Web](docs/04-despliegue_aplicaciones/README.md)
+5. [Despliegue de Sistema de Transferencia de Ficheros](docs/05-ftp/README.md)
+6. [Verificación y Validación](docs/06-verificacion_validacion/README.md)
+7. [Integración y Despliegue Continuo](docs/07-integracion_continua/README.md)
 
 ---
 
