@@ -1,7 +1,5 @@
 # Despliegue de Aplicaciones Web - 2DAW - Curso 2025/2026
 
-Material utilizado en el módulo de **Despliegue de Aplicaciones Web** de 2º DAW.
-
 ![Despliegue](images/banner_despliegue.png)
 
 ---
