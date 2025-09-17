@@ -4,7 +4,6 @@ Material utilizado en el módulo de **Despliegue de Aplicaciones Web** de 2º DA
 
 ![Despliegue](images/banner_despliegue.png)
 
-
 ---
 
 ## Acerca de
@@ -23,8 +22,6 @@ Su contenido se irá actualizando progresivamente a lo largo del curso, con el f
 6. [Despliegue de Sistema de Transferencia de Ficheros](docs/05-ftp/README.md)
 7. [Verificación y Validación](docs/06-verificacion_validacion/README.md)
 8. [Integración y Despliegue Continuo](docs/07-integracion_continua/README.md)
-
-> **Nota:** El índice y los contenidos pueden variar a lo largo del curso para adaptarse al proceso de enseñanza-aprendizaje.
 
 ---
 
