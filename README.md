@@ -13,7 +13,7 @@ Su contenido se irá actualizando progresivamente a lo largo del curso, con el f
 ## Contenidos
 
 0. [Presentación](https://youtu.be/Uhl_dhag95k)
-1. [Control de versiones y documentación](docs/01-control_versiones/README.md)
+1. [Control de versiones y documentación](docs/1/README.md)
 2. [Introducción a la virtualización](docs/02-virtualizacion/README.md)
 3. [Arquitectura Web y Fundamentos del Despliegue](docs/03-arquitectura_web/README.md)
 4. [Despliegue de Páginas y Aplicaciones Web](docs/04-despliegue_aplicaciones/README.md)
