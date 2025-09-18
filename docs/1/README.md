@@ -10,20 +10,20 @@ A lo largo de este tema analizaremos cómo herramientas como **Git** y **GitHub*
 
 ## 📚 Contenido
 
-- **Git: El Sistema de Control de Versiones**
-    - 1.1. Introducción a Git
-    - 1.2. Conceptos Clave en Git
-    - 1.3. Ciclo de Vida de los Archivos en Git
-    - 1.4. Comandos Git Esenciales con Ejemplos Prácticos
-- **Plataformas de Colaboración: GitHub y Bitbucket**
-    - 2.1. Colaboración en la Nube
-    - 2.2. Flujos de Trabajo Comunes
-    - 2.3. Gestión de Proyectos con Scrum
-    - 2.4. Flujo de Trabajo Profesional
-    - 2.5. Herramientas Complementarias
-- **Documentación de Código**
-    - 3.1. Markdown
-    - 3.2. JavaDoc (Java)
+- [1. Git: El Sistema de Control de Versiones](#1-git-el-sistema-de-control-de-versiones)
+    - [1.1. Introducción a Git](#11-introducción-a-git)
+    - [1.2. Conceptos Clave en Git](#12-conceptos-clave-en-git)
+    - [1.3. Ciclo de Vida de los Archivos en Git](#13-ciclo-de-vida-de-los-archivos-en-git)
+    - [1.4. Comandos Git Esenciales con Ejemplos Prácticos](#14-comandos-git-esenciales-con-ejemplos-prácticos)
+- [2. Plataformas de Colaboración: GitHub y Bitbucket](#2-plataformas-de-colaboración-github-y-bitbucket)
+    - [2.1. Colaboración en la Nube](#21-colaboración-en-la-nube)
+    - [2.2. Flujos de Trabajo](#22-flujos-de-trabajo)
+    - [2.3. Gestión de Proyectos con Scrum](#23-gestión-de-proyectos-con-scrum)
+    - [2.4. Flujo de Trabajo Profesional: Del Commit a la Tarea (Issue)](#24-flujo-de-trabajo-profesional-del-commit-a-la-tarea-issue)
+    - [2.5. Herramientas Complementarias](#25-herramientas-complementarias)
+- [3. Documentación de Código](#3-documentación-de-código)
+    - [3.1. Markdown](#31-markdown)
+    - [3.2. JavaDoc (Java)](#32-javadoc-java)
 
 ---
 
@@ -52,13 +52,14 @@ Esta naturaleza distribuida fomenta el desarrollo no lineal y agiliza la gestió
 El flujo de trabajo básico en Git sigue una secuencia lógica:
 
 1. **Modificar archivos:** Realizas cambios en uno o varios archivos dentro de tu directorio de trabajo.
-2. **Preparar archivos:** Añades los archivos modificados al área de preparación. Esto le indica a Git qué cambios específicos deseas incluir en la próxima instantánea.
-3. **Confirmar cambios:** Realizas un commit, lo que toma los archivos tal como están en el área de preparación y almacena esa instantánea de forma permanente en tu repositorio local.
+2. **Preparar archivos (staging):** Añades los archivos modificados al área de preparación (*staging area*). Esto le indica a Git qué cambios específicos deseas incluir en la próxima instantánea.
+3. **Confirmar cambios (commit):** Creas una confirmación que toma los archivos del área de preparación y guarda esa instantánea de forma permanente en tu repositorio local.
 
-**Estados principales:**
-- **Confirmado (Committed):** Los datos están almacenados de forma segura en tu base de datos local.
-- **Modificado (Modified):** Has modificado un archivo en tu directorio de trabajo, pero aún no lo has añadido al área de preparación.
-- **Preparado (Staged):** Has marcado un archivo modificado para que se incluya en la próxima confirmación.
+#### Estados principales de los archivos
+
+- **Modificado (Modified):** El archivo ha cambiado en el directorio de trabajo, pero aún no se ha añadido al área de preparación.
+- **Preparado (Staged):** El archivo modificado ha sido marcado para incluirse en la próxima confirmación.
+- **Confirmado (Committed):** Los cambios ya se guardaron de forma segura en la base de datos del repositorio local.
 
 ### 1.4. Comandos Git Esenciales con Ejemplos Prácticos
 
@@ -124,17 +125,55 @@ Una Pull Request (PR) es una herramienta fundamental para el desarrollo colabora
 **Fork (Bifurcación):**
 Un Fork es una copia de un repositorio existente en tu propia cuenta, ideal para contribuir a proyectos de código abierto.
 
-### 2.2. Flujos de Trabajo Comunes
+### 2.2. Flujos de Trabajo
 
-- **GitHub Flow:** Ramas cortas, revisión por Pull Request, despliegue continuo.
-- **GitFlow:** Ramas de larga vida (`main`/`master`, `develop`), ramas temporales para funcionalidades, lanzamientos y correcciones rápidas.
+**GitFlow:**
+
+- Es el flujo más completo y extendido.
+- Define un esquema con ramas de larga duración como `main` (o `master`) y `develop`.
+- Se crean ramas temporales para funcionalidades (*feature branches*), lanzamientos (*release branches*) y correcciones rápidas (*hotfix branches*).
+- Es especialmente útil en proyectos que requieren ciclos de publicación organizados y un control claro sobre qué entra en cada versión.
+
+> **Nota:**  
+> Aunque existen otros flujos de trabajo, como **GitHub Flow** (más simple y orientado a despliegue continuo), en la mayoría de proyectos de aprendizaje y en entornos profesionales suele bastar con GitFlow.  
+> Lo importante es que el equipo acuerde un único flujo de trabajo y lo siga de manera coherente.
 
 ### 2.3. Gestión de Proyectos con Scrum
 
-- **Issues (Tareas, Historias y Bugs):** Se gestionan como incidencias (issues) en GitHub/Bitbucket.
-- **Tableros de Proyecto (Boards):** Visualización del estado del trabajo (kanban, scrum).
-- **Wikis:** Documentación adicional del proyecto.
-- **Confluence:** Espacio colaborativo para documentación estructurada, integrado con Bitbucket/Jira.
+En el desarrollo ágil, GitHub, Bitbucket y otras plataformas proporcionan herramientas que facilitan la aplicación de Scrum y la organización del trabajo en equipo:
+
+1. **Issues (Incidencias: Tareas, Historias y Bugs)**  
+   Se utilizan para registrar todo tipo de trabajo pendiente.
+
+    - **Historias de usuario:** Describen funcionalidades desde la perspectiva del usuario final.
+    - **Tareas:** Acciones concretas necesarias para implementar una historia.
+    - **Bugs:** Errores o defectos detectados en el software.
+
+   Los issues permiten asignar responsables, establecer prioridades, añadir etiquetas (labels) y relacionarlos con commits o pull requests.
+
+2. **Tableros de Proyecto (Boards)**  
+   Representan visualmente el flujo de trabajo del equipo mediante metodologías como Kanban o Scrum.
+
+    - En un tablero típico se gestionan las columnas: Pendiente, En progreso, En revisión y Completado.
+    - Facilitan la transparencia, la autoorganización y el seguimiento del avance de cada sprint.
+
+3. **Wikis**  
+   Sirven como repositorio de documentación complementaria. Se emplean para:
+
+    - Manuales de uso.
+    - Guías de instalación y despliegue.
+    - Información técnica sobre la arquitectura del sistema.
+
+   Su ventaja es que permanecen junto al repositorio y evolucionan con el proyecto.
+
+4. **Confluence**  
+   Herramienta colaborativa de Atlassian que se integra con Bitbucket y Jira. Permite crear documentación estructurada:
+
+    - Actas de reuniones.
+    - Backlogs detallados.
+    - Diagramas y esquemas de arquitectura.
+
+   Facilita la colaboración en tiempo real y mantiene centralizada la información del equipo.
 
 ### 2.4. Flujo de Trabajo Profesional: Del Commit a la Tarea (Issue)
 
@@ -161,54 +200,74 @@ Para cerrar automáticamente un issue al fusionar, usa palabras clave como:
 
 ## 3. Documentación de Código
 
-La documentación del código es esencial para el mantenimiento futuro y la colaboración en cualquier proyecto.
+La documentación del código es una parte fundamental y a menudo subestimada del desarrollo de software. Es esencial para el mantenimiento futuro de cualquier proyecto, ya que permite a otros desarrolladores (e incluso a tu yo futuro) entender, utilizar y modificar el código sin necesidad de una inmersión profunda. Una buena documentación reduce la curva de aprendizaje y mejora la calidad general del software.
 
 ### 3.1. Markdown
 
-Markdown es un lenguaje de marcado ligero para dar formato a texto plano.  
-Es el formato estándar para archivos README.md y wikis.
+Markdown es un lenguaje de marcado ligero diseñado para dar formato a texto plano. Su principal objetivo es lograr la máxima legibilidad y facilidad de escritura. Es el formato por defecto en plataformas como GitHub para archivos README.md y wikis, y es ampliamente utilizado en documentación técnica, blogs y contenido web debido a su simplicidad y portabilidad.
 
-**Ventajas:**
-- Facilidad de lectura y escritura.
-- Versatilidad y portabilidad.
-- Soporte y popularidad en la comunidad.
+**Ventajas de usar Markdown:**
 
-**Sintaxis Básica:**
+- **Facilidad de Lectura y Escritura:** Su sintaxis es muy natural y se asemeja a cómo formatearías texto en un correo electrónico.
+- **Versatilidad:** Se puede usar para crear una amplia variedad de documentos, desde notas personales hasta libros y documentación de API.
+- **Portabilidad:** Los archivos Markdown son texto plano, lo que significa que pueden ser abiertos y editados con cualquier editor de texto.
+- **Popularidad y Soporte:** Es un estándar bien establecido en la comunidad tecnológica.
 
-```markdown
-# Título Principal (H1)
-## Sección Importante (H2)
+#### Sintaxis Básica de Markdown
 
-**Negrita** y *Cursiva*
+La sintaxis de Markdown es intuitiva. Aquí se muestran los elementos más comunes:
 
-- Lista con viñetas
-1. Lista numerada
+- **Encabezados:** Se utilizan de una a seis almohadillas (`#`) al principio de una línea.
+  ```
+  # Título Principal (H1)
+  ## Sección Importante (H2)
+  ```
 
-[Enlace a Google](https://www.google.com)
+- **Texto Básico (Negrita, Cursiva, Combinado):**
+    - Negrita: `**texto en negrita**` o `__texto en negrita__`.
+    - Cursiva: `*texto en cursiva*` o `_texto en cursiva_`.
+    - Negrita y cursiva: `***texto en negrita y cursiva***`.
 
-![Logo de Ejemplo](/assets/logo.png)
+- **Listas:**
+    - Listas numeradas: Empieza cada elemento con un número seguido de un punto y un espacio.
+    - Listas con viñetas: Empieza cada elemento con un guion (-), un asterisco (*) o un signo más (+) seguido de un espacio.
 
-`código en línea`
+- **Enlaces:** La sintaxis para un enlace en línea consta del texto del enlace entre corchetes `[ ]` seguido de la URL entre paréntesis `( )`.
+  ```
+  [Visita Google](https://www.google.com)
+  ```
 
-```java
-// Bloque de código Java
-public class HelloWorld {
-    public static void main(String[] args) {
-        System.out.println("Hola, Mundo!");
-    }
-}
-```
+- **Imágenes:** Similar a los enlaces, pero precedido por un signo de exclamación `!`.
+  ```
+  ![Logo de Ejemplo](/assets/logo.png)
+  ```
 
-| Encabezado 1 | Encabezado 2 |
-|--------------|--------------|
-| Fila 1 Col 1 | Fila 1 Col 2 |
-| Fila 2 Col 1 | Fila 2 Col 2 |
-```
+- **Bloques de Código:**
+    - Para código en línea, encierra el texto entre comillas invertidas (`` `código en línea` ``).
+    - Para bloques de código multilínea, usa tres comillas invertidas (```) antes y después del bloque. Puedes especificar el lenguaje para el resaltado de sintaxis.
+      ```java
+      public class HelloWorld {
+          public static void main(String[] args) {
+              System.out.println("Hola, Mundo!");
+          }
+      }
+      ```
+
+- **Tablas:** Se construyen usando barras verticales (`|`) para las columnas y guiones (-) para el encabezado.
+  ```
+  | Encabezado 1 | Encabezado 2 |
+  |--------------|--------------|
+  | Fila 1 Col 1 | Fila 1 Col 2 |
+  | Fila 2 Col 1 | Fila 2 Col 2 |
+  ```
 
 ### 3.2. JavaDoc (Java)
 
-JavaDoc es la utilidad estándar de Java para generar documentación de APIs en formato HTML directamente del código fuente.  
-Los comentarios JavaDoc se escriben con la sintaxis especial `/** ... */` y etiquetas `@`.
+JavaDoc es la utilidad estándar de Java para generar documentación de APIs en formato HTML directamente del código fuente. Los comentarios Javadoc se escriben con la sintaxis especial `/** ... */` e incluyen etiquetas especiales (@) para estructurar la información sobre parámetros, valores de retorno y excepciones.
+
+#### Comentarios y Etiquetas en Javadoc
+
+Los comentarios Javadoc se escriben utilizando una sintaxis especial que comienza con `/**` y termina con `*/`. Deben colocarse inmediatamente antes de la declaración de una clase, interfaz, método o miembro. Dentro de estos comentarios, se utilizan "etiquetas" (tags) especiales, precedidas por el símbolo `@`, para estructurar la información.
 
 **Ejemplo de Clase Documentada:**
 
@@ -228,6 +287,7 @@ public class Producto {
 
     /**
      * Obtiene el identificador único del producto.
+     *
      * @return El {@code String} que representa el ID del producto.
      */
     public String getId() {
@@ -236,6 +296,7 @@ public class Producto {
 
     /**
      * Establece el precio del producto.
+     *
      * @param precio El nuevo precio del producto (debe ser mayor que cero).
      * @throws IllegalArgumentException Si el precio proporcionado es menor o igual a cero.
      */
@@ -243,16 +304,24 @@ public class Producto {
         if (precio <= 0) {
             throw new IllegalArgumentException("El precio debe ser mayor que cero.");
         }
+        // Lógica de asignación...
     }
 }
 ```
 
-**Para generar la documentación:**
+#### Generación de la Documentación
 
+Para generar los archivos HTML, puedes usar la línea de comandos o el IDE:
+
+**Desde la Terminal:**
 ```bash
 javadoc -d docs src/main/java/com/mi-proyecto/*.java
 ```
 
----
+**Desde IntelliJ IDEA:**
+1. Ve a Tools en la barra de menú.
+2. Selecciona Generate Javadoc....
+3. En la ventana de diálogo, elige el output directory (ej. docs), el Scope (Project) y cualquier opción adicional como `-windowtitle "Documentación de la API"`.
+4. Haz clic en OK.
 
-¡Listo! Puedes copiar y pegar este documento en el archivo `README.md` de tu repositorio.
+---
