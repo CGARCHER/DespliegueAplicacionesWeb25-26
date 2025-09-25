@@ -263,65 +263,139 @@ La sintaxis de Markdown es intuitiva. Aquí se muestran los elementos más comun
 
 ### 3.2. JavaDoc (Java)
 
-JavaDoc es la utilidad estándar de Java para generar documentación de APIs en formato HTML directamente del código fuente. Los comentarios Javadoc se escriben con la sintaxis especial `/** ... */` e incluyen etiquetas especiales (@) para estructurar la información sobre parámetros, valores de retorno y excepciones.
+Javadoc es el estándar de la industria para generar documentación API en HTML directamente desde tu código Java. Es una herramienta esencial que transforma tus comentarios en documentación profesional y navegable, haciendo tu código más comprensible para otros desarrolladores y para tu yo futuro.
 
-#### Comentarios y Etiquetas en Javadoc
+---
 
-Los comentarios Javadoc se escriben utilizando una sintaxis especial que comienza con `/**` y termina con `*/`. Deben colocarse inmediatamente antes de la declaración de una clase, interfaz, método o miembro. Dentro de estos comentarios, se utilizan "etiquetas" (tags) especiales, precedidas por el símbolo `@`, para estructurar la información.
+### Sintaxis y Etiquetas Fundamentales
 
-**Ejemplo de Clase Documentada:**
+Los comentarios de Javadoc comienzan con `/**` y terminan con `*/`. Dentro de estos bloques, puedes usar texto descriptivo y etiquetas especiales, que son la clave para estructurar la documentación.
+
+| Etiqueta      | Descripción                                                                 | Ejemplo                                            |
+|---------------|-----------------------------------------------------------------------------|----------------------------------------------------|
+| `@param`      | Describe un parámetro de un método o constructor.                           | `@param id El identificador único del usuario.`    |
+| `@return`     | Describe el valor que un método retorna.                                    | `@return El objeto Usuario si se encuentra.`       |
+| `@throws`     | Documenta una excepción que un método puede lanzar y la condición para ello.| `@throws IllegalArgumentException si el ID es nulo.`|
+| `@author`     | Indica quién escribió la clase.                                             | `@author TuNombre`                                 |
+| `@version`    | Especifica la versión actual de la clase o API.                             | `@version 1.0`                                     |
+| `@deprecated` | Marca una clase o método como obsoleto.                                     | `@deprecated Usa el método findById()`             |
+| `@see`        | Proporciona un enlace de referencia a otra parte del código o a una URL externa.| `@see UserService#findUserById(Long)`         |
+| `{@link}`     | Crea un enlace en línea a otro elemento del código, dentro del texto.       | `Retorna un objeto {@link Optional}.`              |
+
+---
+
+### Ejemplo de Uso Completo
+
+Este ejemplo muestra cómo documentar una clase, sus campos, constructores y métodos, utilizando las etiquetas más importantes en un contexto de servicio real.  
+Además, se ilustra el uso de etiquetas HTML como `<p>`, `<pre>` y el uso de `{@link}` para referencias en línea.
 
 ```java
-/**
- * La clase Producto representa un artículo en un inventario con su nombre y precio.
- *
- * <p>Esta clase es fundamental para la gestión de stock y pedidos.</p>
- *
- * @author Tu Nombre
- * @version 1.0.0
- * @see <a href="https://ejemplo.com/docs/productos">Documentación de la API de Productos</a>
- */
-public class Producto {
+package com.hellin.despliegue_api_rest.service;
 
-    private String id;
+import com.hellin.despliegue_api_rest.entity.User;
+import com.hellin.despliegue_api_rest.repository.UserRepository;
+
+import java.util.Optional;
+
+/**
+ * Servicio para la gestión de usuarios.
+ * <p>
+ * Este servicio contiene la lógica de negocio para interactuar con los datos de usuarios
+ * a través de un {@link UserRepository}.
+ * </p>
+ * <p>
+ * <b>Ejemplo de uso:</b>
+ * <pre>
+ *   UserService service = new UserService(new UserRepository());
+ *   Optional&lt;User&gt; userOpt = service.findById(1L);
+ *   userOpt.ifPresent(System.out::println);
+ * </pre>
+ * </p>
+ * @author TuNombre
+ * @version 1.0.0
+ */
+public class UserService {
 
     /**
-     * Obtiene el identificador único del producto.
-     *
-     * @return El {@code String} que representa el ID del producto.
+     * El repositorio utilizado para acceder a los datos de la base de datos de usuarios.
      */
-    public String getId() {
-        return id;
+    private final UserRepository userRepository;
+
+    /**
+     * Construye una nueva instancia de UserService con el repositorio de usuarios.
+     * <p>
+     * Spring se encarga de inyectar automáticamente una instancia de {@link UserRepository}.
+     * </p>
+     * @param userRepository El repositorio para la persistencia de usuarios.
+     */
+    public UserService(UserRepository userRepository) {
+        this.userRepository = userRepository;
     }
 
     /**
-     * Establece el precio del producto.
+     * Busca un usuario en la base de datos por su ID único.
      *
-     * @param precio El nuevo precio del producto (debe ser mayor que cero).
-     * @throws IllegalArgumentException Si el precio proporcionado es menor o igual a cero.
+     * <p>
+     * Este método es el recomendado para obtener un usuario. Si no se encuentra,
+     * retorna un {@link Optional#empty()}.
+     * </p>
+     *
+     * @param id El identificador único del usuario.
+     * @return Un objeto {@link Optional} que contiene el usuario si se encuentra,
+     * o un {@link Optional#empty()} si no existe.
+     * @throws IllegalArgumentException si el ID es nulo.
+     * @see UserRepository#findById(Object)
      */
-    public void setPrecio(double precio) {
-        if (precio <= 0) {
-            throw new IllegalArgumentException("El precio debe ser mayor que cero.");
+    public Optional<User> findById(Long id) {
+        if (id == null) {
+            throw new IllegalArgumentException("El ID no puede ser nulo.");
         }
-        // Lógica de asignación...
+        return userRepository.findById(id);
     }
 }
 ```
 
-#### Generación de la Documentación
+---
 
-Para generar los archivos HTML, puedes usar la línea de comandos o el IDE:
+### Uso de etiquetas HTML en Javadoc
 
-**Desde la Terminal:**
+Puedes usar etiquetas HTML como `<p>`, `<pre>`, `<code>`, `<b>`, etc., dentro de los comentarios Javadoc para mejorar la claridad y presentación de la documentación.
+- `<p>` para párrafos.
+- `<pre>` para ejemplos de código formateado.
+- `<b>`, `<i>`, `<code>` para resaltar texto o indicar fragmentos de código.
+
+---
+
+### Cómo Generar la Documentación
+
+### 1. Desde la línea de comandos (Terminal)
+
+Puedes usar la herramienta `javadoc` que viene incluida con el JDK.
+
 ```bash
-javadoc -d docs src/main/java/com/mi-proyecto/*.java
+javadoc -d docs src/main/java/com/hellin/despliegue_api_rest/
 ```
 
-**Desde IntelliJ IDEA:**
-1. Ve a Tools en la barra de menú.
-2. Selecciona Generate Javadoc....
-3. En la ventana de diálogo, elige el output directory (ej. docs), el Scope (Project) y cualquier opción adicional como `-windowtitle "Documentación de la API"`.
-4. Haz clic en OK.
+- `-d docs`: Le indica que el directorio de salida (destination) para los archivos HTML será una carpeta llamada `docs`.
+- `src/main/java/com/hellin/despliegue_api_rest/`: Es la ruta a los archivos fuente que quieres documentar.
 
+### 2. Desde tu IDE (Entorno de Desarrollo)
+
+Todos los IDEs modernos tienen una opción integrada para generar Javadoc. Es la manera más sencilla de hacerlo.
+
+- **IntelliJ IDEA:** Ve al menú `Tools > Generate Javadoc...` y configura las opciones en el asistente.
+- **Eclipse:** En el menú principal, ve a `Project > Generate Javadoc...` y sigue los pasos del asistente.
+
+---
+
+### Resultado
+
+Al finalizar, obtendrás una documentación profesional y navegable que cualquier persona puede usar para entender tu código sin tener que leerlo línea por línea.
+
+---
+
+### Recursos útiles
+
+- [Guía oficial de Javadoc (Oracle)](https://docs.oracle.com/javase/8/docs/technotes/tools/windows/javadoc.html)
+- [Convenciones de Documentación para el Código Java](https://www.oracle.com/technical-resources/articles/java/javadoc-tool.html)
 ---
