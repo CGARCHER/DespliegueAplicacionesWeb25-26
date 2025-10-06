@@ -167,7 +167,7 @@ En el desarrollo ágil, GitHub, Bitbucket y otras plataformas proporcionan herra
    Su ventaja es que permanecen junto al repositorio y evolucionan con el proyecto.
 
 4. **Confluence**  
-   Herramienta colaborativa de Atlassian que se integra con Bitbucket y Jira. Permite crear documentación estructurada:
+   Herramienta colaborativa de Atlassian que se integra con Bitbucket y [Jira](extra/jira.md). Permite crear documentación estructurada:
 
     - Actas de reuniones.
     - Backlogs detallados.
