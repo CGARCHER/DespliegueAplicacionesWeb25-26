@@ -16,7 +16,7 @@
 12. [Alternativa: Podman y Licencias Empresariales](#12-alternativa-podman-y-licencias-empresariales)
 13. [Mini Ejercicios Prácticos](#13-mini-ejercicios-prácticos)
 14. [Referencias y Recursos](#14-referencias-y-recursos)
-15. [Curso recomendado](#15-curso-recomendado)
+15. [**Curso recomendado**](#15-curso-recomendado)
 
 ---
 
@@ -333,7 +333,6 @@ docker-compose exec web bash
 ## 15. Curso recomendado
 
 Te recomiendo completar el curso de Docker de [Pablo Pereza](https://pabpereza.dev/docs/cursos/docker), que ofrece una visión práctica y muy completa sobre la tecnología de contenedores, imágenes, despliegue y buenas prácticas.  
-**Es muy aconsejable verlo entero para asentar conceptos y ampliar tus conocimientos.**
 
 ---
 
