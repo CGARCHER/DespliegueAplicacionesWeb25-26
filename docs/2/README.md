@@ -22,7 +22,7 @@
 
 ## 1. Introducción a la virtualización
 
-La **virtualización** es una tecnología que permite crear entornos simulados o virtuales sobre un sistema físico. Tradicionalmente, se ha usado para crear máquinas virtuales (VM) que ejecutan sistemas operativos completos sobre un hipervisor, aprovechando al máximo los recursos de hardware y facilitando la gestión y el aislamiento de aplicaciones.
+La **virtualización** es una tecnología que permite crear entornos virtuales sobre un sistema físico. Tradicionalmente, se ha usado para crear máquinas virtuales (VM) que ejecutan sistemas operativos completos sobre un hipervisor, aprovechando al máximo los recursos de hardware y facilitando la gestión y el aislamiento de aplicaciones.
 
 Con el avance de la tecnología y las necesidades de eficiencia, han surgido alternativas como los **contenedores**, que permiten virtualizar a nivel de sistema operativo, compartiendo el kernel y ofreciendo un entorno aislado y ligero para ejecutar aplicaciones. Los contenedores, popularizados por herramientas como Docker, han revolucionado el desarrollo y despliegue de aplicaciones al facilitar la portabilidad, escalabilidad y automatización.
 
