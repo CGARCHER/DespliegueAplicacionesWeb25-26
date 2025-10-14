@@ -3,7 +3,7 @@
 ## Índice
 
 1. [Introducción a la virtualización](#1-introducción-a-la-virtualización)
-2. [Introducción y Conceptos Fundamentales](#2-introducción-y-conceptos-fundamentales)
+2. [Introducción a Docker y Conceptos Fundamentales](#2-introducción-a-docker-y-conceptos-fundamentales)
 3. [Contenedores vs. Máquinas Virtuales](#3-contenedores-vs-máquinas-virtuales)
 4. [Arquitectura y Componentes Docker](#4-arquitectura-y-componentes-docker)
 5. [Instalación en Windows](#5-instalación-en-windows)
@@ -16,7 +16,7 @@
 12. [Alternativa: Podman y Licencias Empresariales](#12-alternativa-podman-y-licencias-empresariales)
 13. [Mini Ejercicios Prácticos](#13-mini-ejercicios-prácticos)
 14. [Referencias y Recursos](#14-referencias-y-recursos)
-15. [**Curso recomendado**](#15-curso-recomendado)
+15. [Curso recomendado](#15-curso-recomendado)
 
 ---
 
@@ -30,9 +30,13 @@ Esta documentación se centra en Docker y la virtualización de aplicaciones web
 
 ---
 
-## 2. Introducción y Conceptos Fundamentales
+## 2. Introducción a Docker y Conceptos Fundamentales
 
-Docker es una plataforma de código abierto que permite empaquetar, distribuir y ejecutar aplicaciones en contenedores. Los contenedores son ligeros y eficientes, ofreciendo portabilidad, aislamiento y flexibilidad para desarrollo y producción.
+### ¿Qué es Docker?
+
+**Docker** es una plataforma de código abierto que permite a los desarrolladores y administradores de sistemas construir, empaquetar, distribuir y ejecutar aplicaciones dentro de contenedores. Fue lanzada en 2013 y rápidamente se convirtió en el estándar de facto para la virtualización a nivel de sistema operativo, por su facilidad de uso, eficiencia y portabilidad.
+
+Docker abstrae las aplicaciones y sus dependencias en contenedores ligeros y aislados, que pueden ejecutarse en cualquier entorno que tenga Docker instalado: desde ordenadores personales hasta servidores en la nube. Esto facilita la entrega continua, el despliegue eficiente y la escalabilidad de aplicaciones modernas.
 
 ### ¿Qué es un contenedor?
 
@@ -45,9 +49,6 @@ La idea de contenedores proviene de mecanismos de aislamiento en sistemas Unix/L
 ### ¿Qué es OCI?
 
 **OCI (Open Container Initiative)** es un proyecto de estándar abierto fundado en 2015 para definir especificaciones sobre la creación, ejecución y distribución de contenedores. Su objetivo es garantizar la compatibilidad entre diferentes herramientas, como Docker, Podman, y runtimes como containerd y runc.
-
-- [Especificación de imagen OCI](https://github.com/opencontainers/image-spec)
-- [Especificación de runtime OCI](https://github.com/opencontainers/runtime-spec)
 
 ### Otros conceptos clave
 
