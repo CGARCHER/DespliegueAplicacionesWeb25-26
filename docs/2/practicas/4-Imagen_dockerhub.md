@@ -1,4 +1,4 @@
-# 4. Práctica: Publicar una aplicación Astro en Docker Hub
+# 4. Publicar una aplicación Astro en Docker Hub
 
 Este proyecto muestra cómo crear una aplicación web sencilla usando **Astro**, contenerizarla con **Docker** y publicarla en **Docker Hub**.
 
