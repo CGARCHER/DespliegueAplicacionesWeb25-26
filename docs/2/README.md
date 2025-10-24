@@ -18,6 +18,13 @@
 14. [Referencias y Recursos](#14-referencias-y-recursos)
 15. [**Curso recomendado**](#15-curso-recomendado)
 
+## Ejercicios/Prácticas
+
+- [1-Contenedores.md](practicas/1-Contenedores.md)
+- [2-Compose_articulos.md](practicas/2-Compose_articulos.md)
+- [3-Entorno_desarrollo.md](practicas/3-Entorno_desarrollo.md)
+- [4-Imagen_dockerhub.md](practicas/4-Imagen_dockerhub.md)
+- [5-Multiples_configuraciones_docker.md](practicas/5-Multiples_configuraciones_docker.md)
 ---
 
 ## 1. Introducción a la virtualización
