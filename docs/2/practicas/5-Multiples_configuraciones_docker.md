@@ -44,20 +44,27 @@ services:
   app:
     build: .
     ports:
-      - "80:80"
+      - "8084:80"
     depends_on:
       - db
-    environment:
-      - DB_HOST=db
-      - DB_NAME=myapp_db
-      - DB_USER=root
-      - DB_PASS=password
   db:
     environment:
       MYSQL_ROOT_PASSWORD: password
-      MYSQL_DATABASE: myapp_db
+      MYSQL_DATABASE: products_db
+      MYSQL_USER: usuario_app
+      MYSQL_PASSWORD: clave_app
     volumes:
       - db_data:/var/lib/mysql
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    restart: always
+    ports:
+      - "8085:80"
+    environment:
+      PMA_HOST: db
+      PMA_PORT: 3306
+    depends_on:
+      - db
 
 volumes:
   db_data:
@@ -111,7 +118,7 @@ services:
       - ./sql/dev/products.sql:/docker-entrypoint-initdb.d/products.sql
     # No se expone el puerto 3306
   app:
-    # No se monta código fuente local
+  # No se monta código fuente local
 ```
 
 **¿Qué cambia respecto al entorno local?**
@@ -182,23 +189,19 @@ DEV = docker-compose.dev.yml
 
 # Levantar entorno LOCAL
 up-local:
-	docker compose -f $(BASE) -f $(LOCAL) up -d
+	docker compose -f $(BASE) -f $(LOCAL) up -d --build
 
 # Levantar entorno DEV
 up-dev:
-	docker compose -f $(BASE) -f $(DEV) up -d
-
-# Apagar contenedores (de cualquier entorno)
-down:
-	docker compose down
-
-# Reconstruir entorno LOCAL (por si cambiaste código o Dockerfile)
-rebuild-local:
-	docker compose -f $(BASE) -f $(LOCAL) up -d --build
-
-# Reconstruir entorno DEV
-rebuild-dev:
 	docker compose -f $(BASE) -f $(DEV) up -d --build
+
+# Eliminar entorno local
+down-local:
+	docker compose -f $(BASE) -f $(LOCAL) down -v
+
+# Eliminar entorno dev
+down-dev:
+	docker compose -f $(BASE) -f $(DEV) down -v
 ```
 
 ---
@@ -211,20 +214,28 @@ rebuild-dev:
 - **make up-dev**
   Levanta el entorno **dev**: MySQL 8, datos de desarrollo, sin exponer puertos y sin montar código.
 
-- **make down**
-  Detiene y elimina los contenedores de cualquier entorno (pero no borra los datos persistentes).
-
-- **make rebuild-local**
-  Reconstruye el entorno local, útil si cambiaste el Dockerfile, el código, o los datos SQL.
-
-- **make rebuild-dev**
-  Reconstruye el entorno de desarrollo, útil si has modificado el código fuente o los datos SQL de dev.
+- **make down-local**
+  Detiene y elimina los contenedores del entorno de local.
+- 
+- **make down-dev**
+  Detiene y elimina los contenedores del entorno de dev.
 
 ---
 
 ## 7. ¿Cómo probar y gestionar los entornos?
 
+0. **Instalación de `make` en Windows usando winget** (En caso de no tenerlo ya de antes)
+Para instalar el programa **make** en Windows utilizando el administrador de paquetes de Windows (**winget**), ejecuta el siguiente comando en la terminal:
+
+```sh
+winget install ezwinports.make
+```
+Esto descargará e instalará `make` en tu sistema Windows, facilitando la gestión y automatización de tareas de compilación
+
+
 1. **Levanta el entorno local (desarrollo en tu PC):**
+ 
+    
 
    ```bash
    make up-local
