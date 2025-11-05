@@ -1,4 +1,4 @@
-# Despliegue de Aplicaciones Web 03 — Arquitectura Web y Fundamentos
+# Despliegue de Aplicaciones Web — UT3 Arquitectura Web y Fundamentos
 
 Descripción
 -----------
@@ -103,9 +103,8 @@ Observabilidad y operación
 - Backups y migraciones de bases de datos: planificarlas y probarlas.
 
 ### Autor
-En construcción, falta detallar para parte más y añadir ejercicios para el tema.
+En construcción, falta detalla mucho y añadir ejercicios para el tema.
 Repositorio creado por [CGARCHER](https://github.com/CGARCHER).
-
 ---
 
 
