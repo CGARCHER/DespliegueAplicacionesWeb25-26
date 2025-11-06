@@ -45,6 +45,7 @@ De acuerdo al Real Decreto 686/2010, de 20 de mayo de 2010, y actualizado en el 
 
 ## Autor
 - [CGARCHER](https://github.com/CGARCHER)
+- Basado en [JOSELUISGS](https://github.com/joseluisgs)
 
 ---
 
