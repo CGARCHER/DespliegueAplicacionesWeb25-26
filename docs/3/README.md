@@ -284,32 +284,6 @@ Monitorización y observabilidad
 
 ---
 
-## 3.10 Buenas prácticas generales
-
-- Separación de entornos: desarrollar, staging/preproducción, producción.
-- Control de versiones: Git, ramas y convenciones (GitFlow, trunk-based).
-- Gestionar configuraciones por entorno: 12-Factor App (config en variables de entorno).
-- No guardar credenciales en el repositorio.
-- Documentar: README, arquitectura, runbooks y playbooks para incidentes.
-- Tests automáticos: unitarios, integración, end-to-end (Selenium, Playwright).
-- Automatizar despliegues y pruebas (CI/CD).
-- Usar infra como código (Terraform, CloudFormation).
-- Autoscaling y balanceo de carga para disponibilidad.
-- Pruebas de carga y stress (JMeter, k6).
-- Plan de recuperación ante desastres y backups periódicos.
-- Políticas de logging y retención adecuadas por cumplimiento.
-
-Checklist final de despliegue
-- [ ] Build y tests en CI aprobados.
-- [ ] Backups hechos y probados.
-- [ ] Secrets gestionados fuera del código.
-- [ ] SSL/TLS configurado y renovaciones automáticas.
-- [ ] Monitorización y alertas activas.
-- [ ] Procedimientos de rollback definidos.
-- [ ] Documentación de despliegue actualizada.
-
----
-
 ## Licencia de uso
 
 Este contenido puede incluir material con licencia **Creative Commons**. Si desea usar, compartir o modificar este material para fines docentes o formativos cite al autor y mantenga condiciones de uso. Ver: https://joseluisgs.dev/docs/license/
