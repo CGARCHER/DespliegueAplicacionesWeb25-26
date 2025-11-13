@@ -183,12 +183,12 @@ La elección del protocolo o estilo de comunicación de la API es una decisión 
 
 ### Tabla comparativa: REST, GraphQL, gRPC, WebSocket, SOAP
 
-| Protocolo / Estilo | ¿Qué es? | Formato de datos | Comunicación | Ventaja principal | Desventaja principal | Uso ideal |
-|---|---|---:|---|---|---|---|
-| REST | Estilo arquitectónico basado en HTTP que expone recursos (URLs) y usa verbos HTTP. | JSON (principal), XML | Peticiones HTTP estándar (GET, POST, PUT, DELETE) | Simple y ampliamente adoptado; fácil de cachear | Puede requerir varias peticiones para datos relacionados (over/under-fetching) | APIs públicas, CRUD, microservicios sencillos |
-| GraphQL | Lenguaje de consulta que permite al cliente solicitar exactamente los datos necesarios. | JSON (respuestas) | POST con la consulta en el cuerpo (también puede usar GET en consultas simples) | Evita over/under-fetching; una única petición para datos complejos | Implementación más compleja; caching HTTP tradicional más difícil | Interfaces ricas (SPA, dashboards), clientes móviles con ancho limitado |
+| Protocolo / Estilo | ¿Qué es? | Formato de datos | Comunicación | Ventaja principal                                | Desventaja principal | Uso ideal |
+|---|---|---:|---|--------------------------------------------------|---|---|
+| REST | Estilo arquitectónico basado en HTTP que expone recursos (URLs) y usa verbos HTTP. | JSON (principal), XML | Peticiones HTTP estándar (GET, POST, PUT, DELETE) | Simple y detalla cada funcón de forma individual | Puede requerir varias peticiones para datos relacionados (over/under-fetching) | APIs públicas, CRUD, microservicios sencillos |
+| GraphQL | Lenguaje de consulta que permite al cliente solicitar exactamente los datos necesarios. | JSON (respuestas) | POST con la consulta en el cuerpo | Te permite pedir exactamente los datos que necesitas| Implementación más compleja; caching HTTP tradicional más difícil | Interfaces ricas (SPA, dashboards), clientes móviles con ancho limitado |
 | gRPC | Framework RPC de alto rendimiento que usa HTTP/2 y Protocol Buffers (Protobuf). | Protobuf (binario) | HTTP/2 (soporta streaming) | Muy eficiente y de baja latencia; contratos fuertemente tipados | Menos legible; requiere grpc-web o proxies para navegadores | Comunicación interna entre microservicios, sistemas de alta demanda |
-| WebSocket | Protocolo bidireccional y persistente para comunicación en tiempo real. | Texto/JSON/Binario | Conexión persistente TCP tras handshake HTTP | Comunicación en tiempo real, full-duplex | Conexiones con estado: escalado y gestión más complejos | Chats, actualizaciones en vivo, colaboración en tiempo real |
+| WebSocket | Protocolo bidireccional y persistente para comunicación en tiempo real. | Texto/JSON/Binario | Conexión persistente TCP tras handshake HTTP | Comunicación en tiempo real, full-duplex         | Conexiones con estado: escalado y gestión más complejos | Chats, actualizaciones en vivo, colaboración en tiempo real |
 | SOAP | Protocolo basado en XML con estándares formales y WSDL para contratos. | XML | Mensajes estructurados (normalmente sobre HTTP POST) | Estándares empresariales para seguridad y transacciones | Verboso y más complejo que JSON/REST | Entornos corporativos, sistemas legacy, transacciones distribuidas |
 
 Resumen rápido:
