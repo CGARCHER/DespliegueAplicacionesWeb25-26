@@ -1,12 +1,8 @@
 # Despliegue de Aplicaciones Web — UT3 Arquitectura Web y Fundamentos
 
-# Tema 3 — Arquitectura Web y Fundamentos del Despliegue
-
 Este tema pertenece al módulo profesional **Despliegue de Aplicaciones Web** del ciclo formativo de **2º de Desarrollo de Aplicaciones Web (DAW)**.  
 Su finalidad es que el alumnado adquiera una visión completa de cómo se **diseña, configura, publica y mantiene una aplicación web** en un entorno de servidor real.
 
-
-## 📚 Contenido
 
 ## 📚 Contenido
 
