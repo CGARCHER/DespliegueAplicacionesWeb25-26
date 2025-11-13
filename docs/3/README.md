@@ -80,7 +80,7 @@ La arquitectura condiciona cómo empaquetar y desplegar la aplicación.
   - Ideal para: Integración entre sistemas heterogéneos y procesamiento asíncrono a gran escala.
 
 ![img](images/arquitecturas_web.gif)
-  
+
 ## 3.4 Protocolos y comunicación. HTTP
 
 La comunicación entre cliente y servidor y entre servicios internos se basa en protocolos y formatos.
@@ -162,42 +162,165 @@ Estos certificados son emitidos por **Autoridades de Certificación (AC)**, enti
 Los navegadores verifican esta firma y alertan al usuario cuando un certificado es inválido, está autofirmado o no coincide con el dominio, mostrando advertencias de seguridad.
 
 
+![img](images/apirest.png)
+
+## 3.5 Servicio Web y Comunicación con APIs
+
+## 3.5.1 ¿Qué es un Servicio Web?
+
+Un servicio web es un sistema que permite que dos aplicaciones se comuniquen a través de la web para intercambiar datos o utilizar funcionalidades remotas. Se apoya en protocolos estándar (típicamente HTTP) y en formatos de datos como JSON o XML. Cada funcionalidad ofrecida se expone mediante un endpoint (una URL del servidor).
+
+A menudo se habla de API porque la API es la interfaz que define cómo otras aplicaciones acceden al servicio web (sus endpoints, operaciones y datos). Y se suele decir API REST porque el estilo REST, basado en recursos y operaciones HTTP (GET, POST, PUT, DELETE), se ha convertido en la forma más común de implementar servicios web modernos debido a su simplicidad, compatibilidad y facilidad de uso.
+
+Beneficios principales:
+- Integración: conecta sistemas heterogéneos.
+- Escalabilidad y flexibilidad: divide funcionalidades en servicios reutilizables.
+- Reutilización: un mismo servicio puede consumirse desde web, móvil o escritorio.
+- Independencia del cliente: el servidor entrega datos, no vistas.
+
+---
+
+## 3.5.2. Protocolos de Comunicación para APIs
+
+La elección del protocolo o estilo de comunicación de la API es una decisión arquitectónica que afecta rendimiento, escalabilidad, experiencia de usuario y costes. A continuación se presenta una comparación de los protocolos más usados.
+
+### Tabla comparativa: REST, GraphQL, gRPC, WebSocket, SOAP
+
+| Protocolo / Estilo | ¿Qué es? | Formato de datos | Comunicación | Ventaja principal | Desventaja principal | Uso ideal |
+|---|---|---:|---|---|---|---|
+| REST | Estilo arquitectónico basado en HTTP que expone recursos (URLs) y usa verbos HTTP. | JSON (principal), XML | Peticiones HTTP estándar (GET, POST, PUT, DELETE) | Simple y ampliamente adoptado; fácil de cachear | Puede requerir varias peticiones para datos relacionados (over/under-fetching) | APIs públicas, CRUD, microservicios sencillos |
+| GraphQL | Lenguaje de consulta que permite al cliente solicitar exactamente los datos necesarios. | JSON (respuestas) | POST con la consulta en el cuerpo (también puede usar GET en consultas simples) | Evita over/under-fetching; una única petición para datos complejos | Implementación más compleja; caching HTTP tradicional más difícil | Interfaces ricas (SPA, dashboards), clientes móviles con ancho limitado |
+| gRPC | Framework RPC de alto rendimiento que usa HTTP/2 y Protocol Buffers (Protobuf). | Protobuf (binario) | HTTP/2 (soporta streaming) | Muy eficiente y de baja latencia; contratos fuertemente tipados | Menos legible; requiere grpc-web o proxies para navegadores | Comunicación interna entre microservicios, sistemas de alta demanda |
+| WebSocket | Protocolo bidireccional y persistente para comunicación en tiempo real. | Texto/JSON/Binario | Conexión persistente TCP tras handshake HTTP | Comunicación en tiempo real, full-duplex | Conexiones con estado: escalado y gestión más complejos | Chats, actualizaciones en vivo, colaboración en tiempo real |
+| SOAP | Protocolo basado en XML con estándares formales y WSDL para contratos. | XML | Mensajes estructurados (normalmente sobre HTTP POST) | Estándares empresariales para seguridad y transacciones | Verboso y más complejo que JSON/REST | Entornos corporativos, sistemas legacy, transacciones distribuidas |
+
+Resumen rápido:
+- REST: simplicidad y compatibilidad.
+- GraphQL: flexibilidad en las consultas y reducción de llamadas.
+- gRPC: rendimiento y tipado fuerte entre servicios.
+- WebSocket: comunicación en tiempo real bidireccional.
+- SOAP: contratos formales y estándares empresariales.
+
+![img](images/apis.gif)
+
+### Otros Protocolos y Estilos de Comunicación
+
+Existen otros protocolos y estilos de comunicación que se adaptan a necesidades específicas:
+
+- Webhook: Mecanismo de callback HTTP que permite a un servicio enviar notificaciones en tiempo real a una URL preconfigurada cuando ocurre un evento específico (por ejemplo, un pago confirmado). El receptor expone un endpoint que acepta POSTs y procesa los eventos entrantes.
+- MQTT (Message Queuing Telemetry Transport): Protocolo ligero de publicación–suscripción diseñado para dispositivos con recursos limitados y redes de bajo ancho de banda. Es el estándar en IoT por su bajo consumo, modelo pub/sub y tolerancia a conexiones intermitentes.
+- Apache Kafka: Plataforma distribuida de streaming de eventos que sirve como columna vertebral para arquitecturas modernas basadas en eventos. Permite publicar, almacenar y procesar grandes volúmenes de mensajes con baja latencia y alta tolerancia a fallos, facilitando el desacoplamiento entre productores y consumidores y el procesamiento en tiempo real.
+
+## 3.6 Tecnologías para el Desarrollo de Servicios
+
+El desarrollo de servicios se centra en la creación de APIs para que las aplicaciones se comuniquen. Las tecnologías y frameworks disponibles varían según el lenguaje y el paradigma de la API (REST, RPC, realtime, etc.). A continuación se muestra una tabla comparativa con tecnologías populares y su uso principal.
+
+| Tecnología | Lenguaje | Uso Principal | Ejemplos de Frameworks / Librerías |
+|---:|---|---|---|
+| Java con Spring Boot | Java | APIs RESTful, microservicios, aplicaciones web de alta escala y enterprise | Spring MVC, Spring WebFlux, Spring Data REST, Hibernate |
+| C# con ASP.NET Core | C# | APIs RESTful, microservicios, servicios en la nube, aplicaciones web empresariales | ASP.NET Core Web API |
+| PHP con Laravel | PHP | APIs RESTful, aplicaciones web con MVC, desarrollo rápido | Laravel (API Resources), componentes de Symfony |
+| Node.js (JavaScript) | JavaScript | APIs RESTful, microservicios, aplicaciones en tiempo real, full-stack JavaScript | Express.js, NestJS, Hapi.js, Meteor.js |
+| Python con Django / Flask | Python | APIs RESTful, aplicaciones web complejas, backend para ML y datos | Django REST Framework, Flask-RESTful |
+| Ruby con Rails | Ruby | APIs RESTful, aplicaciones web con MVC, desarrollo rápido | Ruby on Rails (API mode) |
+
+Notas rápidas:
+- La elección depende del equipo, del ecosistema y de los requisitos no funcionales (latencia, concurrencia, facilidad de despliegue, integraciones).
+- Para APIs públicas y rápidas de poner en marcha, frameworks como Express, Flask o Laravel son habituales.
+- Para sistemas de gran escala o enterprise, Spring Boot y ASP.NET Core ofrecen herramientas maduras para seguridad, transacciones y despliegue.
+
+
+## 3.7 Gestores de Bases de Datos
+
+Los gestores de bases de datos son componentes fundamentales en cualquier plataforma web moderna. Son software encargados de almacenar, estructurar y recuperar grandes volúmenes de datos de manera eficiente.
+
+- MySQL / MariaDB  
+  Gestores de bases de datos relacionales de código abierto, muy populares por su eficiencia y velocidad. Se usan frecuentemente junto a PHP y otras pilas LAMP. MariaDB es un fork de MySQL totalmente libre.
+
+- PostgreSQL  
+  Gestor relacional de código abierto conocido por su robustez, cumplimiento de estándares y por ofrecer funcionalidades avanzadas para consultas complejas y control de integridad.
+
+- SQL Server  
+  Sistema gestor de bases de datos de Microsoft, habitual en entornos empresariales Windows (WISA). Ofrece buena integración con el ecosistema Microsoft y herramientas empresariales.
+
+- MongoDB  
+  Base de datos NoSQL orientada a documentos. Es flexible en el esquema, escalable y adecuada para datos semi-estructurados o aplicaciones que requieren cambios frecuentes en el modelo de datos.
+
+
+
+## 3.8 Ejemplo de arquitectura y tecnologias
+
+Netflix utiliza una arquitectura orientada a **microservicios** que les permite separar su plataforma en servicios pequeños e independientes. Esto mejora la escalabilidad, la disponibilidad y la fiabilidad de la plataforma.
+
+* **Microservicios**: Cada función, como la autenticación de usuarios, la gestión de perfiles o las recomendaciones de contenido, se ejecuta como un servicio individual. Esto permite que los equipos de desarrollo trabajen y desplieguen servicios de forma independiente.
+* **Basado en la nube**: Netflix migró completamente a **Amazon Web Services (AWS)**, lo que le permite escalar recursos de forma dinámica según la demanda.
+* **Open Connect**: Es su propia red de distribución de contenido (CDN) global. Este sistema almacena copias del contenido de Netflix en servidores locales de los proveedores de servicios de internet (ISP) para acercar el contenido a los usuarios, reduciendo la latencia y la carga en la red.
+  **Tecnologías Front-end**
+
+El front-end de Netflix es la interfaz de usuario con la que los suscriptores interactúan, y se centra en una experiencia de usuario (UX) fluida y personalizada.
+
+* **Lenguajes y frameworks**:
+  * **JavaScript y React**: El sitio web y las aplicaciones para Smart TVs utilizan JavaScript, en su mayoría con la biblioteca **React**, para construir componentes y páginas de manera eficiente.
+  * **HTML y CSS**: Son la base para la estructura y el diseño visual de la interfaz.
+
+**Tecnologías Back-end**
+
+El back-end es el cerebro de la plataforma, encargado de la lógica del negocio, el manejo de datos y el procesamiento de contenido.
+
+* **Lenguajes de programación**:
+  * **Java**: Es el lenguaje principal para la mayoría de los microservicios. Su rendimiento, escalabilidad y robustez lo hacen ideal para el núcleo de la arquitectura.
+  * **Python**: Se utiliza para tareas específicas, como el análisis de datos, el aprendizaje automático para el sistema de recomendaciones y la automatización de procesos.
+* **Bases de datos**:
+  * **Apache Cassandra (NoSQL)**: Se usa para manejar grandes volúmenes de datos distribuidos, como la actividad de visualización de los usuarios, que requiere alta disponibilidad y un rendimiento de lectura/escritura muy rápido.
+  * **MySQL**: Se utiliza para datos que requieren la consistencia de una base de datos relacional, como la facturación y los pagos.
+* **APIs**: La comunicación entre los servicios y el front-end se realiza a través de **APIs (Interfaces de Programación de Aplicaciones)** que permiten un intercambio de datos constante y eficiente.
+* **Codificación de video**: Cuando el contenido es subido, el back-end lo procesa y lo codifica en múltiples formatos y resoluciones (4K, HD, etc.) para que pueda ser entregado a cualquier dispositivo, en cualquier calidad de conexión.
+
+
+![img](/images/netflix.gif)
+
+
+## 3.9 Servidor Web y Servidor de Aplicaciones
+
+### Servidor Web
+Un servidor web es un software que recibe peticiones HTTP de los navegadores y devuelve los recursos solicitados. Normalmente entrega archivos estáticos, como páginas HTML, imágenes, hojas de estilo o scripts.
+
+Además, un servidor web puede enviar ciertas peticiones a otros sistemas cuando es necesario generar contenido dinámico.
+
+Ejemplos: Apache HTTP Server, Nginx.
+
+Funciones principales de un servidor web:
+- Atender peticiones HTTP.
+- Servir contenido estático.
+- Gestionar dominios y sitios mediante Virtual Hosts.
+- Aplicar reglas de seguridad, compresión o redirecciones.
+- Enviar peticiones a aplicaciones externas cuando se necesita contenido dinámico.
+
+### Servidor de Aplicaciones
+Un servidor de aplicaciones es un software que ejecuta la lógica de una aplicación. No solo entrega archivos, sino que procesa código, realiza operaciones, consulta bases de datos y genera respuestas dinámicas según la petición del usuario.
+
+Estos servidores ofrecen servicios adicionales como gestión de sesiones, seguridad o comunicación con bases de datos.
+
+Ejemplo: Apache Tomcat (para aplicaciones Java con servlets y JSP).
+
+Funciones principales de un servidor de aplicaciones:
+- Ejecutar código del lado del servidor.
+- Generar contenido dinámico.
+- Gestionar sesiones y autenticación.
+- Establecer conexiones con bases de datos.
+- Proporcionar un entorno de ejecución para aplicaciones de distintos lenguajes o frameworks.
+
 
 
 --------------------
 EN CONSTRUCCIÓN!!! EL RESTO PENDIENTE DE COMPLETAR LA INFORMACIÓN
--------
+---------------------------------------
 
 
 
-### APIs y estilos de comunicación
-- REST: estándar sobre HTTP, recursos y verbos.
-- GraphQL: consultas flexibles, reduce overfetching.
-- gRPC: alta eficiencia, uso de Protocol Buffers, ideal para comunicaciones backend-backend.
-- WebSocket: comunicación bidireccional en tiempo real.
-- SOAP: XML, usado en entornos corporativos.
 
-Elección depende de requisitos: rendimiento, compatibilidad, real-time, facilidad de uso.
 
----
 
-## 3.5 Tecnologías para aplicaciones dinámicas
-
-Relación entre lenguaje, servidores y bases de datos — determinan el despliegue.
-
-Ejemplos de stack y despliegue típico:
-- PHP (Laravel) -> Apache/Nginx + PHP-FPM -> MySQL/MariaDB
-- Python (Django) -> Gunicorn/Uvicorn + Nginx -> PostgreSQL
-- Java (Spring Boot) -> Ejecutable JAR (embedded Tomcat) o WAR -> Oracle/MySQL
-- Node.js -> Nginx como proxy reverso -> MongoDB/Redis para cache
-- C# (.NET) -> Kestrel + Reverse Proxy (IIS/Nginx) -> SQL Server
-
-Consejos:
-- Separar servicios de datos y replicas para escalado.
-- Usar caches (Redis, Memcached) para reducir carga en la BD.
-- Gestionar conexiones y pools de conexión en producción.
-
----
 
 ## 3.6 Plataformas y entornos de ejecución
 
@@ -226,21 +349,6 @@ Tipos y recomendaciones:
   - Excelentes para endpoints pequeños, tareas temporales y reducción de coste operacional.
 
 ---
-
-## 3.7 Servidores web y de aplicaciones
-
-- Apache:
-  - Modular, soporte extendido para .htaccess, fácil configuración.
-- Nginx:
-  - Alto rendimiento, proxy reverso recomendado delante de aplicaciones que corren en procesos.
-- Caddy:
-  - HTTPS automático, configuración sencilla.
-- Servidores de aplicaciones:
-  - Tomcat/Jetty para Java.
-  - Gunicorn/uWSGI para Python.
-  - Kestrel para .NET.
-  - Node.js corre su propio proceso (pm2 para gestión de procesos).
-
 ## 3.8 Estrategias y patrones de despliegue
 
 Formas de publicar nuevas versiones:
