@@ -310,12 +310,8 @@ Funciones principales de un servidor de aplicaciones:
 
 
 --------------------
-EN CONSTRUCCIÓN!!! EL RESTO PENDIENTE DE COMPLETAR LA INFORMACIÓN
+EN CONSTRUCCIÓN!!! EL RESTO PENDIENTE DE COMPLETAR LA INFORMACIÓN  - FUNDAMENTOS DE DESPLIEGUE
 ---------------------------------------
-
-
-
-
 
 
 
