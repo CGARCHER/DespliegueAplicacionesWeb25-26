@@ -277,7 +277,7 @@ El back-end es el cerebro de la plataforma, encargado de la lógica del negocio,
 * **Codificación de video**: Cuando el contenido es subido, el back-end lo procesa y lo codifica en múltiples formatos y resoluciones (4K, HD, etc.) para que pueda ser entregado a cualquier dispositivo, en cualquier calidad de conexión.
 
 
-![img](/images/netflix.gif)
+![img](images/netflix.gif)
 
 
 ## 3.9 Servidor Web y Servidor de Aplicaciones
