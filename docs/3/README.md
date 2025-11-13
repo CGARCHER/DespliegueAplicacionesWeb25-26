@@ -8,16 +8,17 @@ Su finalidad es que el alumnado adquiera una visión completa de cómo se **dise
 
 ## 📚 Contenido
 
+## 📚 Contenido
+
 - [3.1 Introducción al Despliegue de Aplicaciones Web](#3-1-introducción-al-despliegue-de-aplicaciones-web)
 - [3.2 Front-end vs Back-end y tipos de aplicaciones](#3-2-front-end-vs-back-end-y-tipos-de-aplicaciones)
 - [3.3 Arquitecturas web y su impacto en el despliegue](#3-3-arquitecturas-web-y-su-impacto-en-el-despliegue)
 - [3.4 Protocolos y comunicación (HTTP/HTTPS, APIs)](#3-4-protocolos-y-comunicación-httphttps-apis)
-- [3.5 Tecnologías para aplicaciones dinámicas](#3-5-tecnologías-para-aplicaciones-dinámicas)
-- [3.6 Plataformas y entornos de ejecución](#3-6-plataformas-y-entornos-de-ejecución)
-- [3.7 Servidores web y de aplicaciones](#3-7-servidores-web-y-de-aplicaciones)
-- [3.8 Estrategias y patrones de despliegue](#3-8-estrategias-y-patrones-de-despliegue)
-- [3.9 Seguridad y monitorización](#3-9-seguridad-y-monitorización)
-
+- [3.5 Servicio Web y Comunicación con APIs](#3-5-servicio-web-y-comunicación-con-apis)
+- [3.6 Tecnologías para el Desarrollo de Servicios](#3-6-tecnologías-para-el-desarrollo-de-servicios)
+- [3.7 Gestores de Bases de Datos](#3-7-gestores-de-bases-de-datos)
+- [3.8 Ejemplo de arquitectura y tecnologias](#3-8-ejemplo-de-arquitectura-y-tecnologias)
+- [3.9 Servidor Web y Servidor de Aplicaciones](#3-9-servidor-web-y-servidor-de-aplicaciones)
 
 ## 3.1 Introducción al Despliegue de Aplicaciones Web
 
@@ -322,7 +323,7 @@ EN CONSTRUCCIÓN!!! EL RESTO PENDIENTE DE COMPLETAR LA INFORMACIÓN
 
 
 
-## 3.6 Plataformas y entornos de ejecución
+## 3.X Plataformas y entornos de ejecución
 
 Tipos y recomendaciones:
 
@@ -349,7 +350,7 @@ Tipos y recomendaciones:
   - Excelentes para endpoints pequeños, tareas temporales y reducción de coste operacional.
 
 ---
-## 3.8 Estrategias y patrones de despliegue
+## 3.X Estrategias y patrones de despliegue
 
 Formas de publicar nuevas versiones:
 
@@ -372,7 +373,7 @@ Rollback:
 
 ---
 
-## 3.9 Seguridad y monitorización
+## 3.X Seguridad y monitorización
 
 Seguridad
 - Forzar HTTPS.
