@@ -4,18 +4,19 @@ Este tema pertenece al módulo profesional **Despliegue de Aplicaciones Web** de
 Su finalidad es que el alumnado adquiera una visión completa de cómo se **diseña, configura, publica y mantiene una aplicación web** en un entorno de servidor real.
 
 
-## 📚 Contenido
+## Contenido
 
-- [3.1 Introducción al Despliegue de Aplicaciones Web](#3-1-introducción-al-despliegue-de-aplicaciones-web)
-- [3.2 Front-end vs Back-end y tipos de aplicaciones](#3-2-front-end-vs-back-end-y-tipos-de-aplicaciones)
-- [3.3 Arquitecturas web y su impacto en el despliegue](#3-3-arquitecturas-web-y-su-impacto-en-el-despliegue)
-- [3.4 Protocolos y comunicación (HTTP/HTTPS, APIs)](#3-4-protocolos-y-comunicación-httphttps-apis)
-- [3.5 Servicio Web y Comunicación con APIs](#3-5-servicio-web-y-comunicación-con-apis)
-- [3.6 Tecnologías para el Desarrollo de Servicios](#3-6-tecnologías-para-el-desarrollo-de-servicios)
-- [3.7 Gestores de Bases de Datos](#3-7-gestores-de-bases-de-datos)
-- [3.8 Ejemplo de arquitectura y tecnologias](#3-8-ejemplo-de-arquitectura-y-tecnologias)
-- [3.9 Servidor Web y Servidor de Aplicaciones](#3-9-servidor-web-y-servidor-de-aplicaciones)
-- [3.10 Servidor Web y Servidor de Aplicaciones](#3-10-despliegue-de-aplicaciones-web)
+- [3.1 Introducción al Despliegue de Aplicaciones Web](#31-introduccion-al-despliegue-de-aplicaciones-web)
+- [3.2 Front-end vs Back-end y tipos de aplicaciones](#32-front-end-vs-back-end-y-tipos-de-aplicaciones)
+- [3.3 Web vs App Web](#33-web-vs-app-web)
+- [3.3 Arquitecturas web y su impacto en el despliegue](#33-arquitecturas-web-y-su-impacto-en-el-despliegue)
+- [3.4 Protocolos y comunicación (HTTP/HTTPS, APIs)](#34-protocolos-y-comunicacion-http)
+- [3.5 Servicio Web y Comunicación con APIs](#35-servicio-web-y-comunicacion-con-apis)
+- [3.6 Tecnologías para el Desarrollo de Servicios](#36-tecnologias-para-el-desarrollo-de-servicios)
+- [3.7 Gestores de Bases de Datos](#37-gestores-de-bases-de-datos)
+- [3.8 Ejemplo de arquitectura y tecnologias](#38-ejemplo-de-arquitectura-y-tecnologias)
+- [3.9 Servidor Web y Servidor de Aplicaciones](#39-servidor-web-y-servidor-de-aplicaciones)
+- [3.10 Despliegue de Aplicaciones Web](#310-despliegue-de-aplicaciones-web)
 
 ## 3.1 Introducción al Despliegue de Aplicaciones Web
 
