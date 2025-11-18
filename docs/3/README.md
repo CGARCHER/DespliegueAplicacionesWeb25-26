@@ -303,7 +303,7 @@ Un servidor de aplicaciones es un software que ejecuta la lógica de una aplicac
 
 Estos servidores ofrecen servicios adicionales como gestión de sesiones, seguridad o comunicación con bases de datos.
 
-Ejemplo: Apache Tomcat (para aplicaciones Java con servlets y JSP).
+Ejemplo: Apache Tomcat (para aplicaciones Java).
 
 Funciones principales de un servidor de aplicaciones:
 - Ejecutar código del lado del servidor.
@@ -312,7 +312,7 @@ Funciones principales de un servidor de aplicaciones:
 - Establecer conexiones con bases de datos.
 - Proporcionar un entorno de ejecución para aplicaciones de distintos lenguajes o frameworks.
 
-# 3.10. Despliegue de Aplicaciones Web
+## 3.10. Despliegue de Aplicaciones Web
 
 ### Concepto de Despliegue
 
@@ -334,7 +334,7 @@ Escalabilidad horizontal ("Scale Out"): Consiste en añadir más servidores o �
 
 Clusters: Conjunto de servidores que trabajan de forma coordinada como una única unidad lógica, aumentando la disponibilidad y el rendimiento.
 
-Balanceadores de carga: Dispositivos o aplicaciones que distribuyen el tráfico entre varios servidores. Optimizan los recursos, reducen tiempos de respuesta y evitan la saturación de un solo nodo. Pueden ser soluciones de software (como Apache con mod_jk, que analiza la petición HTTP y respeta la sesión del usuario) o soluciones de hardware basadas en algoritmos como Round Robin o Least Connections. Los balanceadores de hardware que inspeccionan el tráfico HTTP y mantienen la afinidad de sesión son una opción muy utilizada en entornos profesionales.
+Balanceadores de carga: Dispositivos o aplicaciones que distribuyen el tráfico entre varios servidores. Optimizan los recursos, reducen tiempos de respuesta y evitan la saturación de un solo nodo.
 
 ### Despliegue en Contenedores (Docker, Kubernetes)
 
@@ -342,8 +342,7 @@ El uso de contenedores se ha vuelto muy popular, ya que permite portabilidad, co
 
 Docker: Plataforma de contenedores que facilita la creación y ejecución de aplicaciones mediante “imágenes”. Los contenedores representan una forma ligera de virtualización, más eficiente que las máquinas virtuales tradicionales. El proceso incluye crear Dockerfile(s), generar imágenes, subirlas a un registro (como Docker Hub) y desplegarlas.
 
-Docker Compose: Herramienta que permite orquestar varios contenedores a la vez, ideal para entornos de desarrollo que combinan servicios como Apache/Nginx y PHP.
-![Diagrama de un entorno Docker Compose con servicios Apache/Nginx y PHP]
+Docker Compose: Herramienta que permite orquestar varios contenedores a la vez y ajustar la configuración de ellos.
 
 Kubernetes: Plataforma de orquestación que automatiza el despliegue, escalado y gestión de contenedores. Permite definir autoescalado, balanceo de carga y configurar réplicas para garantizar alta disponibilidad.
 
@@ -407,21 +406,20 @@ Las prácticas de CI/CD automatizan el ciclo de vida del software, desde el desa
 
 Integración Continua (CI): Los desarrolladores integran cambios de forma frecuente en un repositorio compartido. Cada commit activa una construcción automática y ejecución de pruebas (unitarias, de integración, funcionales). Su objetivo es detectar errores pronto y mantener el código en un estado estable.
 
-Entrega Continua (Continuous Delivery): Extiende la CI garantizando que el código validado esté siempre listo para desplegar en producción. Incluye pruebas adicionales y despliegues en entornos de staging, normalmente con una aprobación manual previa.
+Entrega Continua (CD-Continuous Delivery): Extiende la CI garantizando que el código validado esté siempre listo para desplegar en producción. Incluye pruebas adicionales y despliegues en entornos de staging, normalmente con una aprobación manual previa.
 
-Despliegue Continuo (Continuous Deployment): Va un paso más allá: cualquier cambio que supere correctamente toda la pipeline se despliega automáticamente en producción. Esto permite despliegues frecuentes y de bajo riesgo. Requiere una observación constante y técnicas como rolling updates o canary releases para reducir el impacto de posibles fallos.
+Despliegue Continuo (CD- Continuous Deployment): Va un paso más allá: cualquier cambio que supere correctamente toda la pipeline se despliega automáticamente en producción. Esto permite despliegues frecuentes y de bajo riesgo. Requiere una observación constante y técnicas como rolling updates o canary releases para reducir el impacto de posibles fallos.
 
 ![img](images/cicd.png)
 
 ---
 
-## Licencia de uso
+### Licencia de uso
 
 Este contenido puede incluir material con licencia **Creative Commons**. Si desea usar, compartir o modificar este material para fines docentes o formativos cite al autor y mantenga condiciones de uso. Ver: https://joseluisgs.dev/docs/license/
 
 ### Autor
 En construcción, falta detalla mucho y añadir ejercicios para el tema.
 Repositorio creado por [CGARCHER](https://github.com/CGARCHER).
----
 
 
