@@ -281,18 +281,21 @@ El back-end es el cerebro de la plataforma, encargado de la lógica del negocio,
 ## 3.9 Servidor Web y Servidor de Aplicaciones
 
 ### Servidor Web
+
 Un servidor web es un software que recibe peticiones HTTP de los navegadores y devuelve los recursos solicitados. Normalmente entrega archivos estáticos, como páginas HTML, imágenes, hojas de estilo o scripts.
 
 Además, un servidor web puede enviar ciertas peticiones a otros sistemas cuando es necesario generar contenido dinámico.
 
-Ejemplos: Apache HTTP Server, Nginx.
+**Ejemplos:** Apache HTTP Server, Nginx.
 
-Funciones principales de un servidor web:
+## Funciones principales de un servidor web
+
 - Atender peticiones HTTP.
 - Servir contenido estático.
-- Gestionar dominios y sitios mediante Virtual Hosts.
+- Gestionar dominios y sitios mediante *Virtual Hosts*.
 - Aplicar reglas de seguridad, compresión o redirecciones.
 - Enviar peticiones a aplicaciones externas cuando se necesita contenido dinámico.
+- Actuar como *reverse proxy*, reenviando peticiones a servidores internos para balanceo de carga, seguridad, caché o terminación SSL/TLS.
 
 ### Servidor de Aplicaciones
 Un servidor de aplicaciones es un software que ejecuta la lógica de una aplicación. No solo entrega archivos, sino que procesa código, realiza operaciones, consulta bases de datos y genera respuestas dinámicas según la petición del usuario.
