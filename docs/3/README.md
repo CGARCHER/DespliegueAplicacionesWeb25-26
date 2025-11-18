@@ -15,6 +15,7 @@ Su finalidad es que el alumnado adquiera una visión completa de cómo se **dise
 - [3.7 Gestores de Bases de Datos](#3-7-gestores-de-bases-de-datos)
 - [3.8 Ejemplo de arquitectura y tecnologias](#3-8-ejemplo-de-arquitectura-y-tecnologias)
 - [3.9 Servidor Web y Servidor de Aplicaciones](#3-9-servidor-web-y-servidor-de-aplicaciones)
+- [3.10 Servidor Web y Servidor de Aplicaciones](#3-10-despliegue-de-aplicaciones-web)
 
 ## 3.1 Introducción al Despliegue de Aplicaciones Web
 
@@ -307,81 +308,106 @@ Funciones principales de un servidor de aplicaciones:
 - Establecer conexiones con bases de datos.
 - Proporcionar un entorno de ejecución para aplicaciones de distintos lenguajes o frameworks.
 
+# 3.10. Despliegue de Aplicaciones Web
+
+### Concepto de Despliegue
+
+Para desplegar una aplicación web se requieren varios elementos clave:
+
+Software: Incluye los componentes fundamentales de una plataforma web: un sistema operativo, un servidor web (Apache, Nginx), un servidor de aplicaciones (como Tomcat para Java), el runtime del lenguaje de programación (JDK para Java, el intérprete/runtime de PHP, .NET runtime) y un gestor de bases de datos. En entornos de desarrollo local, herramientas como Docker Desktop o XAMPP facilitan la configuración y pruebas del proyecto.
+
+Hardware: Se necesita un servidor con recursos suficientes de CPU, memoria RAM y almacenamiento para soportar la aplicación y la carga prevista de usuarios. La capacidad de escalar estos recursos es un aspecto importante.
+
+Dependencias: Incluye las librerías y paquetes específicos del framework o del proyecto (por ejemplo, archivos JAR en Java, paquetes NuGet en C# o dependencias de Composer en PHP).
+
+### Escalabilidad (Vertical y Horizontal, Clusters y Balanceadores de Carga)
+
+La escalabilidad es la capacidad de un sistema web para absorber un aumento de carga sin perder rendimiento ni funcionalidad. Resulta esencial para cualquier aplicación moderna.
+
+Escalabilidad vertical ("Scale Up"): Implica aumentar los recursos (CPU, RAM, almacenamiento) del servidor existente.
+
+Escalabilidad horizontal ("Scale Out"): Consiste en añadir más servidores o “nodos” y repartir la carga entre ellos.
+
+Clusters: Conjunto de servidores que trabajan de forma coordinada como una única unidad lógica, aumentando la disponibilidad y el rendimiento.
+
+Balanceadores de carga: Dispositivos o aplicaciones que distribuyen el tráfico entre varios servidores. Optimizan los recursos, reducen tiempos de respuesta y evitan la saturación de un solo nodo. Pueden ser soluciones de software (como Apache con mod_jk, que analiza la petición HTTP y respeta la sesión del usuario) o soluciones de hardware basadas en algoritmos como Round Robin o Least Connections. Los balanceadores de hardware que inspeccionan el tráfico HTTP y mantienen la afinidad de sesión son una opción muy utilizada en entornos profesionales.
+
+### Despliegue en Contenedores (Docker, Kubernetes)
+
+El uso de contenedores se ha vuelto muy popular, ya que permite portabilidad, consistencia y rapidez en el despliegue de aplicaciones.
+
+Docker: Plataforma de contenedores que facilita la creación y ejecución de aplicaciones mediante “imágenes”. Los contenedores representan una forma ligera de virtualización, más eficiente que las máquinas virtuales tradicionales. El proceso incluye crear Dockerfile(s), generar imágenes, subirlas a un registro (como Docker Hub) y desplegarlas.
+
+Docker Compose: Herramienta que permite orquestar varios contenedores a la vez, ideal para entornos de desarrollo que combinan servicios como Apache/Nginx y PHP.
+![Diagrama de un entorno Docker Compose con servicios Apache/Nginx y PHP]
+
+Kubernetes: Plataforma de orquestación que automatiza el despliegue, escalado y gestión de contenedores. Permite definir autoescalado, balanceo de carga y configurar réplicas para garantizar alta disponibilidad.
+
+### Despliegue en la Nube (AWS, Google Cloud, Azure)
+
+El despliegue en la nube ofrece escalabilidad automática, servicios gestionados y alta disponibilidad.
+
+Proveedores comunes: AWS, Google Cloud Platform (GCP) y Microsoft Azure.
+
+![img](images/cuotas-cloud.jpg)
+
+Proceso de despliegue:
+
+- Configuración de la infraestructura: Creación de instancias, bases de datos y otros recursos necesarios.
+
+- Implementación del código: Uso de servicios PaaS como AWS Elastic Beanstalk o Google App Engine para simplificar el despliegue.
+
+- Autoscaling y balanceadores de carga: Configuración para gestionar el tráfico y mantener la disponibilidad.
+
+- Seguridad: Definición de políticas, firewalls y certificados SSL/TLS.
+
+- Pruebas y validación: Ejecución de pruebas para asegurar un funcionamiento adecuado.
+
+- Monitorización y alertas: Implementación de herramientas de observabilidad y registro de eventos. La monitorización a través de archivos de registro (logs) es esencial para el mantenimiento y el estudio del funcionamiento de los servidores. Los logs guardan información detallada sobre las conexiones y eventos del servidor. Apache, por defecto, registra esta información en el formato CLF (Common Log Format), una especificación estándar que facilita el análisis de registros entre diferentes servidores web.
+
+- Documentación: Registro de configuraciones y procedimientos para facilitar el mantenimiento y la incorporación de nuevos miembros al equipo.
+
+### Estrategias de despliegue
+
+Las estrategias fundamentales utilizadas en el desarrollo de software moderno para liberar nuevas versiones de aplicaciones en producción. El objetivo principal de estas técnicas es **minimizar el tiempo de inactividad (downtime)** y **reducir el riesgo** de introducir errores.
+
+#### *Despliegue Estándar*
+
+* **¿Qué es?:** Consiste en **detener** la aplicación por completo, reemplazar la versión anterior por la nueva en todos los servidores simultáneamente y luego **reiniciar el servicio**.
+* **¿Cuándo Aplicar?:** Es el método **histórico y más simple**. Se usa cuando una **interrupción** (*downtime*) de minutos u horas no es crítica, como en **aplicaciones pequeñas** o sistemas internos. En sistemas modernos de alta disponibilidad, se evita por el alto riesgo de inactividad.
+
+#### *Rolling Updates*
+
+* **¿Qué es?:** Las instancias o servidores se actualizan de forma **gradual y escalonada**. El tráfico se redirige continuamente a los servidores que están listos, sean nuevos o antiguos.
+* **¿Cuándo Aplicar?:** Cuando la **disponibilidad continua (24/7)** es una prioridad y las versiones (antigua y nueva) pueden **convivir** y manejar las mismas bases de datos por un corto período de tiempo sin problemas.
+
+#### *Blue/Green*
+
+* **¿Qué es?:** Se mantienen **dos entornos de producción idénticos** (Azul y Verde). La nueva versión se despliega en el entorno inactivo (ej. Verde). Una vez verificado, todo el tráfico se **redirige de golpe** al nuevo entorno.
+* **¿Cuándo Aplicar?:** Cuando necesitas la **máxima seguridad en la reversión**. Permite que, si algo falla, puedas **volver al entorno anterior (Azul) inmediatamente** con solo cambiar el *router* de tráfico.
+
+#### *Canary Releases*
+
+* **¿Qué es?:** Se lanza la nueva versión solo a un **porcentaje muy pequeño de usuarios reales** (ej. 1% al 5%). Si funciona bien con ese grupo, se aumenta progresivamente el porcentaje hasta llegar al 100%.
+* **¿Cuándo Aplicar?:** Es ideal para **validar nuevas funcionalidades o cambios cruciales** en un entorno real. Ayuda a detectar fallos de rendimiento o errores sin exponer a toda la base de usuarios al riesgo.
+
+#### *Feature Flags*
+
+* **¿Qué es?:** Son variables o **interruptores de configuración** en el código que permiten **activar o desactivar** ciertas funcionalidades en producción en tiempo real, sin tener que hacer un nuevo despliegue.
+* **¿Cuándo Aplicar?:** Para **lanzamientos controlados** (ej. activar una función solo a usuarios *premium* o en una región específica) o como un **mecanismo de seguridad** que permite "apagar" un módulo que está dando errores al instante.
 
 
---------------------
-EN CONSTRUCCIÓN!!! EL RESTO PENDIENTE DE COMPLETAR LA INFORMACIÓN  - FUNDAMENTOS DE DESPLIEGUE
----------------------------------------
+### Introducción a la Integración Continua / Despliegue Continuo (CI/CD)
 
+Las prácticas de CI/CD automatizan el ciclo de vida del software, desde el desarrollo hasta la puesta en producción.
 
+Integración Continua (CI): Los desarrolladores integran cambios de forma frecuente en un repositorio compartido. Cada commit activa una construcción automática y ejecución de pruebas (unitarias, de integración, funcionales). Su objetivo es detectar errores pronto y mantener el código en un estado estable.
 
-## 3.X Plataformas y entornos de ejecución
+Entrega Continua (Continuous Delivery): Extiende la CI garantizando que el código validado esté siempre listo para desplegar en producción. Incluye pruebas adicionales y despliegues en entornos de staging, normalmente con una aprobación manual previa.
 
-Tipos y recomendaciones:
+Despliegue Continuo (Continuous Deployment): Va un paso más allá: cualquier cambio que supere correctamente toda la pipeline se despliega automáticamente en producción. Esto permite despliegues frecuentes y de bajo riesgo. Requiere una observación constante y técnicas como rolling updates o canary releases para reducir el impacto de posibles fallos.
 
-- VPS / Servidor Dedicado:
-  - Control total, ideal para aprendizaje o infra pequeña.
-  - Requiere gestión de sistema operativo, seguridad y backups.
-
-- PaaS:
-  - Abstracción de infra, despliegue por push o docker.
-  - Ejemplos: Heroku, Render, Railway, Google App Engine.
-  - Rápido para prototipos y MVPs.
-
-- Contenedores (Docker):
-  - Empaqueta app y dependencias.
-  - Reproducible entre entornos.
-
-- Orquestación (Kubernetes):
-  - Gestiona despliegues, escalado, servicios, configuraciones.
-  - Añade curva de aprendizaje, pero escala bien.
-  - Alternativas: Docker Swarm, AWS ECS.
-
-- Serverless / FaaS:
-  - Despliegue de funciones (AWS Lambda, Vercel, Netlify).
-  - Excelentes para endpoints pequeños, tareas temporales y reducción de coste operacional.
-
----
-## 3.X Estrategias y patrones de despliegue
-
-Formas de publicar nuevas versiones:
-
-- Manual:
-  - FTP/SSH, poco recomendable fuera de emergencias.
-- Automatizado (CI/CD):
-  - Pipelines que compilan, testean y despliegan.
-  - Herramientas: GitHub Actions, GitLab CI, Jenkins, CircleCI.
-
-Patrones de despliegue:
-- Blue-Green: dos entornos, se cambia tráfico al entorno nuevo tras validación.
-- Rolling Update: actualizar por lotes sin downtime completo.
-- Canary Release: exponer la nueva versión a un % de usuarios y monitorizar.
-- Immutable Deployments: crear nueva infraestructura y sustituirla, en lugar de mutar la existente.
-
-Rollback:
-- Mantener artefactos versionados.
-- Scripts de migración reversibles.
-- Estrategias automáticas en pipelines para revertir si fallan health checks.
-
----
-
-## 3.X Seguridad y monitorización
-
-Seguridad
-- Forzar HTTPS.
-- Gestión de secretos: usar vaults (AWS Secrets Manager, HashiCorp Vault) o variables de entorno en CI.
-- Autenticación/Autorización: OAuth2, JWT, sesiones seguras.
-- CORS: permitir solo orígenes necesarios.
-- Validación y saneamiento de entradas para prevenir XSS, SQLi, CSRF.
-- Actualizaciones y parches de dependencias: usar escaneo de vulnerabilidades (Dependabot, Snyk).
-
-Monitorización y observabilidad
-- Logs estructurados (JSON) y centralizados (ELK, EFK).
-- Métricas: Prometheus + Grafana, Datadog.
-- Alertas: configurar umbrales y notificaciones (Slack, e-mail, PagerDuty).
-- Health checks y readiness probes (Kubernetes).
-- Backups: programados, probados y restaurados periódicamente.
-- Auditoría: registro de cambios críticos y accesos.
+![img](images/cicd.png)
 
 ---
 
