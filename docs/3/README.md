@@ -288,7 +288,7 @@ Además, un servidor web puede enviar ciertas peticiones a otros sistemas cuando
 
 **Ejemplos:** Apache HTTP Server, Nginx.
 
-## Funciones principales de un servidor web
+#### Funciones principales de un servidor web
 
 - Atender peticiones HTTP.
 - Servir contenido estático.
