@@ -1,4 +1,4 @@
-Práctica: Configuración de un dominio local y despliegue mediante Apache + Tomcat (HTTP y HTTPS)
+# Práctica: Configuración de un dominio local y despliegue mediante Apache + Tomcat (HTTP y HTTPS)
 
 Esta práctica consiste en configurar un dominio local (por ejemplo, midominio.local) y utilizar Apache como servidor web frontal actuando como reverse proxy, reenviando las peticiones hacia una aplicación desplegada en Tomcat. También incluye la configuración opcional de HTTPS utilizando un certificado autofirmado. La práctica puede realizarse tanto con una instalación independiente de Apache como con el servidor Apache incluido en XAMPP.
 1. Requisitos previos
