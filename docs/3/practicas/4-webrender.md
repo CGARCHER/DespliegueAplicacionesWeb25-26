@@ -26,7 +26,6 @@ Crea la carpeta del proyecto con esta estructura:
 
 mi-web-docker/
 ├─ Dockerfile
-├─ .dockerignore
 └─ web/
    ├─ index.html
    ├─ styles.css
