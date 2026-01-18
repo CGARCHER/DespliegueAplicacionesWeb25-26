@@ -16,7 +16,7 @@ Su contenido se irá actualizando progresivamente a lo largo del curso, con el f
 1. [Control de versiones y documentación](docs/1/README.md)
 2. [Introducción a la virtualización](docs/2/README.md)
 3. [Arquitectura Web y Fundamentos del Despliegue](docs/3/README.md)
-4. [Despliegue de Páginas y Aplicaciones Web](docs/4/README.md)
+4. [Despliegue de Páginas y Aplicaciones Web](docs/5/README.md)
 5. Despliegue de Sistema de Transferencia de Ficheros
 6. Verificación y Validación
 7. Integración y Despliegue Continuo
