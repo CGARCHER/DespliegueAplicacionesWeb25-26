@@ -129,7 +129,4 @@ No arriesgues la seguridad de tu servidor con contraseñas simples cuando puedes
 ### Algunos briconsejos adicionales:
 1. **Utiliza logs para monitorear las transferencias:** Te ayudarán a verificar conexiones activas en tu servidor.
 2. **Mantén el servidor actualizado:** Esto incluye tanto el sistema operativo como el software de tu servidor FTP/SFTP.
-3. **Desactiva accesos innecesarios:** Si no estás utilizando FTP o FTPS, desactívalos para reducir vectores de ataque.# Despliegue de Sistema de Transferencia de Ficheros — UT5
-
-Este tema pertenece al módulo profesional **Despliegue de Aplicaciones Web** del ciclo formativo de **2º de Desarrollo de Aplicaciones Web (DAW)**.  
-Su finalidad es que el alumnado adquiera una comprensión detallada de los procesos, herramientas y protocolos necesarios para **mover archivos de forma segura entre cliente y servidor**, lo que les permitirá gestionar sistemas de transferencia de ficheros en entornos de producción.
+3. **Desactiva accesos innecesarios:** Si no estás utilizando FTP o FTPS, desactívalos para reducir vectores de ataque.
