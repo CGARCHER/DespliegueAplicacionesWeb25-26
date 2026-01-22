@@ -1,0 +1,13 @@
+Ejercicio Práctico: Subida Automática de Archivos con Spring Batch
+Enunciado
+Debes crear un proceso batch con Spring Batch que lea automáticamente todos los archivos de una carpeta local llamada ./input/ y los suba al servidor SFTP utilizando el servicio SftpService que ya existe en el proyecto. Una vez subido cada archivo correctamente, debe moverse a una subcarpeta ./input/sent/ para evitar reprocesarlo. El proceso debe implementarse usando un Tasklet que ejecute toda la lógica en un único método execute(). Debes configurar un Job con un Step que utilice este Tasklet, y proporcionar una forma de ejecutar el job (ya sea automáticamente al iniciar la aplicación o mediante un endpoint REST).
+El Tasklet debe listar los archivos de la carpeta ./input/, excluir la carpeta sent/, y por cada archivo encontrado intentar subirlo al SFTP. Si la subida es exitosa, mover el archivo a ./input/sent/; si falla, dejarlo en ./input/ y registrar el error en los logs. Al finalizar, debe mostrar un resumen con el número de archivos procesados exitosamente y los que fallaron. Es importante manejar correctamente las excepciones y proporcionar logs informativos durante todo el proceso.
+
+Recursos de Ayuda
+Teoría de Spring Batch:
+
+https://github.com/CGARCHER/DAW_DWES_23-24/blob/main/docs/07-springbatch/README.md
+
+Ejemplo práctico con Tasklet:
+
+https://github.com/CGARCHER/Repaso-Springboot/tree/main/mybatch

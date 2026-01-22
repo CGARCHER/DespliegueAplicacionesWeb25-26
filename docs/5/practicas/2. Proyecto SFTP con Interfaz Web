@@ -1,0 +1,269 @@
+# Añadir Interfaz Web con Thymeleaf - Proyecto SFTP
+
+Este documento explica los pasos necesarios para añadir una interfaz web usando Thymeleaf para subir archivos mediante un navegador.
+
+---
+
+## Objetivo
+
+El objetivo es crear una interfaz web simple que permita subir archivos al servidor SFTP usando un formulario HTML.
+
+---
+
+## Pasos a seguir
+
+### Paso 1: Actualizar `pom.xml`
+
+Añadir la siguiente dependencia a Thymeleaf en el archivo `pom.xml`:
+
+```xml
+<dependencies>
+    <!-- Dependencias existentes -->
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-web</artifactId>
+    </dependency>
+    
+    <dependency>
+        <groupId>com.jcraft</groupId>
+        <artifactId>jsch</artifactId>
+        <version>0.1.55</version>
+    </dependency>
+
+    <!-- NUEVA: Thymeleaf para la interfaz web -->
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-thymeleaf</artifactId>
+    </dependency>
+</dependencies>
+```
+
+---
+
+### Paso 2: Modificar `SftpService.java`
+
+Añadir un método para subir archivos desde un objeto `MultipartFile` al archivo `src/main/java/es/hellin/stfp_app/service/SftpService.java`:
+
+```java
+// NUEVO: Método para subir archivos desde formulario web
+public void uploadFile(MultipartFile file) throws Exception {
+    Session session = null;
+    ChannelSftp channelSftp = null;
+
+    try {
+        JSch jsch = new JSch();
+        logger.info("Cargando clave privada: {}", config.getPrivateKeyPath());
+        jsch.addIdentity(config.getPrivateKeyPath());
+        
+        session = jsch.getSession(config.getUser(), config.getHost(), config.getPort());
+        session.setConfig("StrictHostKeyChecking", "no");
+
+        logger.info("Conectando con autenticación SSH...");
+        session.connect();
+        logger.info("Conexión SSH establecida");
+
+        Channel channel = session.openChannel("sftp");
+        channel.connect();
+        channelSftp = (ChannelSftp) channel;
+        logger.info("Canal SFTP abierto");
+
+        channelSftp.cd(config.getRemoteDirectory());
+        logger.info("Directorio remoto: {}", config.getRemoteDirectory());
+
+        logger.info("Subiendo: {} ({} bytes)", file.getOriginalFilename(), file.getSize());
+
+        InputStream inputStream = file.getInputStream();
+        channelSftp.put(inputStream, file.getOriginalFilename());
+        inputStream.close();
+
+        logger.info("Archivo subido exitosamente: {}", file.getOriginalFilename());
+
+    } catch (JSchException e) {
+        logger.error("Error SSH: {}", e.getMessage());
+        throw new Exception("Error de autenticación SSH", e);
+    } catch (SftpException e) {
+        logger.error("Error SFTP: {}", e.getMessage());
+        throw new Exception("Error al subir archivo", e);
+    } finally {
+        if (channelSftp != null && channelSftp.isConnected()) {
+            channelSftp.disconnect();
+        }
+        if (session != null && session.isConnected()) {
+            session.disconnect();
+        }
+    }
+}
+```
+
+---
+
+### Paso 3: Crear el `Controlador Web`
+
+Agregar un nuevo controlador en el archivo `src/main/java/es/hellin/stfp_app/controller/WebController.java`:
+
+```java
+@Controller
+public class WebController {
+
+    private final SftpService sftpService;
+
+    public WebController(SftpService sftpService) {
+        this.sftpService = sftpService;
+    }
+
+    @GetMapping("/")
+    public String index() {
+        return "index";
+    }
+
+    @PostMapping("/upload")
+    public String uploadFile(@RequestParam("file") MultipartFile file, 
+                           RedirectAttributes redirectAttributes) {
+        
+        if (file.isEmpty()) {
+            redirectAttributes.addFlashAttribute("errorMessage", "Por favor selecciona un archivo");
+            return "redirect:/";
+        }
+
+        try {
+            sftpService.uploadFile(file);
+            redirectAttributes.addFlashAttribute("successMessage", 
+                "Archivo '" + file.getOriginalFilename() + "' subido exitosamente");
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("errorMessage", 
+                "Error al subir archivo: " + e.getMessage());
+        }
+
+        return "redirect:/";
+    }
+}
+```
+
+---
+
+### Paso 4: Crear la Vista HTML con Thymeleaf
+
+Agregar una nueva vista en el archivo `src/main/resources/templates/index.html`:
+
+```html
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Subir Archivos SFTP</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 50px;
+        }
+        
+        .success {
+            color: green;
+            border: 1px solid green;
+            padding: 10px;
+            margin: 10px 0;
+        }
+        
+        .error {
+            color: red;
+            border: 1px solid red;
+            padding: 10px;
+            margin: 10px 0;
+        }
+        
+        form {
+            margin-top: 20px;
+        }
+        
+        button {
+            margin-top: 10px;
+            padding: 5px 15px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Subir Archivos a SFTP</h1>
+
+    <div th:if="${successMessage}" class="success" th:text="${successMessage}"></div>
+    <div th:if="${errorMessage}" class="error" th:text="${errorMessage}"></div>
+
+    <form method="post" action="/upload" enctype="multipart/form-data">
+        <input type="file" name="file" required>
+        <br>
+        <button type="submit">Subir Archivo</button>
+    </form>
+</body>
+</html>
+```
+
+---
+
+### Paso 5: Actualizar `application.properties`
+
+Configurar la subida de archivos en el archivo `src/main/resources/application.properties`:
+
+```properties
+# Configuración servidor
+server.port=8080
+
+# Configuración SFTP con autenticación SSH
+sftp.host=localhost
+sftp.port=2222
+sftp.user=sftpuser
+sftp.private-key-path=ssh-keys/sftp_key
+sftp.remote-directory=/uploads
+
+# Configuración de subida de archivos
+spring.servlet.multipart.max-file-size=50MB
+spring.servlet.multipart.max-request-size=50MB
+```
+
+---
+
+### Probar la aplicación
+
+1. Asegurar que Docker está corriendo:
+   ```bash
+   docker-compose up -d
+   ```
+
+2. Compilar el proyecto:
+   ```bash
+   ./mvnw clean install
+   ```
+
+3. Ejecutar la aplicación:
+   ```bash
+   ./mvnw spring-boot:run
+   ```
+
+4. Abrir el navegador en:  
+   [http://localhost:8080](http://localhost:8080)
+
+---
+
+## Estructura final del proyecto
+
+```
+sftp-despliegue/
+├── src/
+│   └── main/
+│       ├── java/
+│       │   └── es/hellin/stfp_app/
+│       │       ├── config/
+│       │       │   └── SftpConfig.java
+│       │       ├── controller/
+│       │       │   └── WebController.java
+│       │       └── service/
+│       │           └── SftpService.java
+│       └── resources/
+│           ├── templates/
+│           │   └── index.html
+│           └── application.properties
+├── ssh-keys/
+│   ├── sftp_key
+│   └── sftp_key.pub
+├── sftp-data/
+├── docker-compose.yml
+└── pom.xml
+```
