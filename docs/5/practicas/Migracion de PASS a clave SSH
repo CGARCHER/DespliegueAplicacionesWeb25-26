@@ -1,0 +1,225 @@
+# Migración a Autenticación SSH - Proyecto SFTP
+
+Este documento explica cómo adaptar el proyecto SFTP para usar autenticación con claves SSH en lugar de usuario y contraseña.
+
+---
+
+## 🔧 Cambios necesarios para migrar a SSH
+
+### Resumen de modificaciones
+| Componente             | Cambio Necesario                                |
+|------------------------|------------------------------------------------|
+| **Claves SSH**         | Generar par de claves (privada + pública)      |
+| **docker-compose.yml** | Montar clave pública, eliminar password del comando |
+| **application.properties** | Cambiar `sftp.password` por `sftp.private-key-path` |
+| **SftpConfig.java**    | Cambiar propiedad `password` por `privateKeyPath` |
+| **SftpService.java**   | Usar `jsch.addIdentity()` en vez de `session.setPassword()` |
+| **.gitignore**         | Añadir clave privada para no subirla a Git     |
+
+---
+
+## 🔐 Flujo Completo: Aplicación Spring Boot y Servidor SFTP
+
+```text
+┌──────────────┐       ┌──────────────┐
+│  Aplicación  │       │  Servidor    │
+│ Spring Boot  │       │     SFTP     │
+└──────┬───────┘       └──────┬───────┘
+       │                      │
+       │ 1. Crear sesión SSH  │
+       │    con clave privada │
+       │ jsch.addIdentity()   │
+       ├─────────────────────>│
+       │                      │
+       │ 2. Solicitar conexión│
+       │    al servidor SFTP  │
+       ├─────────────────────>│
+       │                      │
+       │ 3. Desafío + Firma   │
+       │    (autenticación)   │
+       │<────────────────────>│
+       │                      │
+       │ 4. Abrir canal SFTP  │
+       ├─────────────────────>│
+       │                      │
+       │ 5. Cambiar a         │
+       │    directorio remoto │
+       │    (/uploads)        │
+       ├─────────────────────>│
+       │                      │
+       │ 6. Subir archivo     │
+       │    al directorio     │
+       │    remoto            │
+       ├─────────────────────>│
+       │                      │
+       │ 7. Confirmar el      │
+       │    archivo subido    │
+       │<─────────────────────┤
+       │                      │
+       │ 8. Cerrar canal y    │
+       │    sesión SSH        │
+       ├─────────────────────>│
+      ▼                      ▼
+```
+
+---
+
+## 🔑 Paso 1: Generar claves SSH
+
+**Crear directorio para las claves:**
+```bash
+mkdir ssh-keys
+```
+
+**Generar par de claves en formato PEM:**
+```bash
+ssh-keygen -t rsa -b 4096 -m PEM -f ssh-keys/sftp_key
+```
+
+### Explicación del comando:
+- `-t rsa`: Generar clave con algoritmo RSA (compatible con JSch).
+- `-b 4096`: Tamaño recomendado de clave (4096 bits).
+- `-m PEM`: Generar clave en formato PEM.
+- `-f`: Ruta donde se guardarán las claves.
+
+**Nota:** Cuando se solicite passphrase, simplemente presiona Enter sin ingresar ninguna contraseña.
+
+**Comprobaciones:**
+- Verificar la clave privada:
+  ```bash
+  head -n 1 ssh-keys/sftp_key
+  ```
+  Debe mostrar: `-----BEGIN RSA PRIVATE KEY-----`
+
+- Verificar la clave pública:
+  ```bash
+  cat ssh-keys/sftp_key.pub
+  ```
+  Debe comenzar con: `ssh-rsa AAAAB3NzaC1yc2EA...`
+
+**Archivos generados:**
+- `sftp_key` → Clave **privada** (🔒 no compartir ni subir a Git).
+- `sftp_key.pub` → Clave **pública** (a instalar en el servidor).
+
+---
+
+## 🐳 Paso 2: Modificar `docker-compose.yml`
+
+Cambios necesarios:
+- Montar la clave pública en el contenedor.
+- Eliminar el password del comando (utilizar `::`).
+
+Archivo: `docker-compose.yml`
+```yaml
+version: '3.8'
+
+services:
+  sftp:
+    image: atmoz/sftp:latest
+    container_name: sftp-server
+    ports:
+      - "2222:22"
+    volumes:
+      # ⭐ NUEVO: Montar clave pública para autenticación
+      - ./ssh-keys/sftp_key.pub:/home/sftpuser/.ssh/keys/sftp_key.pub:ro
+      # Directorio para archivos subidos
+      - ./sftp-data:/home/sftpuser/uploads
+    # ⭐ CAMBIO: Password vacío (::) indica autenticación solo SSH
+    command: sftpuser::1001:1001
+
+  # Navegador de archivos web (opcional)
+  filebrowser:
+    image: filebrowser/filebrowser
+    container_name: sftp-filebrowser
+    ports:
+      - "8090:80"
+    volumes:
+      - ./sftp-data:/srv
+    environment:
+      - FB_NOAUTH=true
+```
+
+---
+
+⚙️ Paso 3: Modificar application.properties
+Cambios necesarios:
+- Eliminar `sftp.password`.
+- Añadir `sftp.private-key-path`.
+
+Archivo: `src/main/resources/application.properties`
+```properties
+# Configuración servidor
+server.port=8080
+
+# Configuración SFTP con autenticación SSH
+sftp.host=localhost
+sftp.port=2222
+sftp.user=sftpuser
+sftp.private-key-path=ssh-keys/sftp_key  # ⭐ NUEVO
+sftp.remote-directory=/uploads
+
+# ⚠️ ELIMINAR esta línea:
+# sftp.password=mipassword
+```
+
+---
+
+💻 Paso 4: Modificar SftpConfig.java
+Cambios necesarios:
+- Cambiar la propiedad `password` por `privateKeyPath`.
+- Actualizar los getters y setters correspondientes.
+
+Archivo: `src/main/java/es/hellin/stfp_app/config/SftpConfig.java`
+```java
+... (El código Java permanece igual a la versión anterior que ya presentamos) ...
+```
+
+---
+
+💻 Paso 5: Modificar SftpService.java
+Cambios necesarios:
+- Usar `jsch.addIdentity()` para cargar la clave privada.
+- Eliminar `session.setPassword()`.
+
+Archivo: `src/main/java/es/hellin/stfp_app/service/SftpService.java`
+```java
+... (El código Java permanece igual a la versión anterior ya presentado) ...
+```
+
+---
+
+📁 Paso 6: Actualizar .gitignore
+Es fundamental **no subir claves privadas al repositorio Git**.
+
+Archivo: `.gitignore`
+```gitignore
+# Claves privadas SSH - NUNCA SUBIR A GIT
+ssh-keys/sftp_key
+ssh-keys/*_key
+*.pem
+id_rsa
+id_rsa.*
+
+# Datos temporales
+sftp-data/
+uploads/
+
+# Build
+target/
+*.class
+*.jar
+*.war
+
+# IDE
+.idea/
+*.iml
+.vscode/
+
+# Logs
+*.log
+logs/
+```
+
+---
+
+Este archivo incluye el contenido previamente aprobado junto con los pasos 3 a 6 que ayudan a completar el proceso. Avísame si necesitas algún detalle adicional.
