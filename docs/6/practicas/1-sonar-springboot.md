@@ -2,7 +2,6 @@
 
 Guía para integrar SonarQube en un proyecto Spring Boot con Maven.
 
----
 
 ## ¿Qué hace SonarQube?
 
@@ -15,7 +14,6 @@ Analiza tu código Java y detecta:
 
 Además, mide la cobertura de tests (integrándose, por ejemplo, con JaCoCo).
 
----
 
 ## Configurar el proyecto
 
@@ -46,7 +44,6 @@ Añade el plugin de SonarQube dentro de `<build><plugins>`:
 </plugin>
 ```
 
----
 
 ### 2. Añadir SonarQube al `docker-compose.yml`
 
@@ -89,7 +86,6 @@ docker logs sonarqube
 
 Cuando veas el mensaje `SonarQube is operational` ya puedes acceder al panel.
 
----
 
 ## Configurar SonarQube (primera vez)
 
@@ -112,7 +108,6 @@ Cuando veas el mensaje `SonarQube is operational` ya puedes acceder al panel.
    - Ejemplo de formato:  
      `sqp_a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6q7r8s9t0`
 
----
 
 ## Ejecutar el análisis
 
@@ -130,7 +125,6 @@ Cambia `TU_TOKEN_AQUI` por el token que generaste en SonarQube.
 - `verify`: compila el proyecto y ejecuta tests/verificaciones.
 - `sonar:sonar`: ejecuta el análisis y envía los resultados a SonarQube.
 
----
 
 ## Ver los resultados
 
@@ -149,7 +143,6 @@ Entra a esa URL y verás:
 - **Duplications**: Código repetido.
 - **Coverage**: Porcentaje cubierto por tests (necesita configuración de JaCoCo).
 
----
 
 ## Reglas de SonarQube: personalización y adaptación
 
@@ -189,7 +182,6 @@ Si quieres que tu proyecto use un perfil concreto:
 
 De esta forma, cada servicio o módulo puede tener su propio conjunto de reglas si lo necesitas.
 
----
 
 ## Entender los niveles de severidad
 
@@ -215,7 +207,6 @@ FileInputStream file = new FileInputStream("file.txt");
 
 **Acción:** Arreglar antes de hacer commit.
 
----
 
 ### Critical 🟠
 
@@ -238,7 +229,6 @@ String query = "SELECT * FROM users WHERE name = '" + userName + "'";
 
 **Acción:** Priorizar durante la semana.
 
----
 
 ### Major 🟡
 
@@ -260,7 +250,6 @@ public void processData(int unused) { // parámetro sin usar
 
 **Acción:** Refactorizar cuando tengas tiempo (añadir al backlog técnico).
 
----
 
 ### Minor 🔵
 
@@ -283,7 +272,6 @@ import java.util.ArrayList;
 
 **Acción:** Corregir si hay tiempo o si estás tocando esa parte del código.
 
----
 
 ### Info ℹ️
 
@@ -303,7 +291,6 @@ public void oldMethod() { }
 
 **Acción:** Opcional, puedes ir aplicándolas progresivamente.
 
----
 
 ## Cómo priorizar
 
@@ -312,7 +299,6 @@ public void oldMethod() { }
 - **Minor**: Corregir cuando sobre tiempo o durante refactors.
 - **Info**: Solo si mejora claramente el código.
 
----
 
 ## Quality Gate
 
@@ -342,7 +328,6 @@ Al igual que las reglas, el Quality Gate también se puede adaptar:
 
 Esto te permite adaptar la exigencia a la realidad de tu proyecto (por ejemplo, proyectos legacy vs. proyectos nuevos).
 
----
 
 ## SonarLint: análisis en tiempo real en tu IDE
 
@@ -355,7 +340,6 @@ Esto te permite adaptar la exigencia a la realidad de tu proyecto (por ejemplo, 
 - Funciona sin conexión a internet.
 - Puede sincronizarse con tu servidor SonarQube para usar las mismas reglas (reglas compartidas de calidad).
 
----
 
 ### Instalar SonarLint en IntelliJ IDEA
 
@@ -370,7 +354,6 @@ Esto te permite adaptar la exigencia a la realidad de tu proyecto (por ejemplo, 
 2. Busca **"SonarLint"**.
 3. Haz clic en **Install**.
 
----
 
 ### Usar SonarLint
 
@@ -389,7 +372,6 @@ public void loadData() {
 }
 ```
 
----
 
 ### Conectar SonarLint con tu servidor SonarQube
 
@@ -413,7 +395,6 @@ Para usar las mismas reglas que tu proyecto en SonarQube:
 4. Introduce tu token.
 5. Selecciona el proyecto que corresponda.
 
----
 
 ### Ventajas de usar SonarLint
 
@@ -422,7 +403,6 @@ Para usar las mismas reglas que tu proyecto en SonarQube:
 - Aprendes buenas prácticas mientras programas.
 - Ahorra tiempo en revisiones de código (code reviews).
 
----
 
 ## Diferencias SonarLint vs SonarQube
 
@@ -441,7 +421,6 @@ Usa **ambos**:
 - **SonarLint** mientras programas.
 - **SonarQube** antes de hacer push o en tu pipeline de CI/CD.
 
----
 
 ## Comandos útiles (Docker / SonarQube)
 
@@ -457,7 +436,6 @@ Reiniciar el servicio de SonarQube:
 docker compose restart sonarqube
 ```
 
----
 
 ## Resumen
 
