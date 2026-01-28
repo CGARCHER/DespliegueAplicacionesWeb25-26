@@ -18,7 +18,7 @@ Su contenido se irá actualizando progresivamente a lo largo del curso, con el f
 3. [Arquitectura Web y Fundamentos del Despliegue](docs/3/README.md)
 4. [Despliegue de Páginas y Aplicaciones Web](docs/4/README.md)
 5. [Despliegue de Sistema de Transferencia de Ficheros](docs/5/README.md)
-6. Verificación y Validación
+6. [Verificación y Validación](docs/6/README.md)
 7. Integración y Despliegue Continuo
 
 ---
