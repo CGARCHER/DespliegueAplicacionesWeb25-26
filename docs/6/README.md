@@ -1,4 +1,4 @@
-# QA y Calidad de Código en Despliegue: Una Guía Esencial para 2DAW (UT6)
+# Verificación y Validación - UT6
 
 ## 6. Contenido
 
