@@ -26,10 +26,7 @@
   - [6.7.2. Revisión de dependencias](#672-revisión-de-dependencias)
   - [6.7.3. Gestión de secretos y credenciales](#673-gestión-de-secretos-y-credenciales)
 - [6.8. Coste de detección en fases del desarrollo](#68-coste-de-detección-en-fases-del-desarrollo)
-  - [6.8.1. Reflexión](#681-reflexión)
 - [6.9. Conclusión: QA para Profesionales del Futuro](#69-conclusión-qa-para-profesionales-del-futuro)
-
----
 
 ## 6.1. Introducción
 
@@ -39,8 +36,6 @@ Todo se reduce a incorporar una buena cultura de desarrollo profesional basada e
 - **Herramientas de análisis de código**: que buscan errores temprano.
 - **Pruebas automáticas**: que aseguran que tu app sigue funcionando después de cada cambio.
 - **Automatización de despliegues (CI/CD)**: para entregar software rápido y fiable.
-
----
 
 ## 6.2. ¿Qué significa realmente "calidad" en el código?
 
@@ -74,7 +69,6 @@ La calidad en el desarrollo de software se refleja en varias dimensiones, entre 
 
 En definitiva, **calidad** significa más que entregar algo que funcione; significa entregar un producto que sea eficaz, eficiente y sostenible a largo plazo.
 
----
 
 ## 6.3. Verificación y Validación (V&V): ¿El trabajo cumplió el objetivo?
 
@@ -94,7 +88,6 @@ Ejemplo: ¿Es fácil de usar? ¿Las funcionalidades implementadas resuelven las 
 - **Verificación:** Comprueba si construiste el software como se especificó.
 - **Validación:** Comprueba si el software resulta útil y satisfactorio para sus usuarios.
 
----
 
 ## 6.4. Tipos de Pruebas en QA: ¡Sigue la Pirámide!
 
@@ -106,7 +99,6 @@ Ejemplo: ¿Es fácil de usar? ¿Las funcionalidades implementadas resuelven las 
 - **JUnit** (Java), **Mocha/Jest** (JavaScript/Node.js), **Pytest** (Python), **XUnit** (.NET).
 - Automatiza estas pruebas en tus pipelines de integración continua (CI).
 
----
 
 ### 6.4.2. Pruebas de Integración
 Las pruebas de integración aseguran que **módulos distintos funcionan bien juntos**.
@@ -119,7 +111,6 @@ Una API que recibe datos desde un formulario HTML y los almacena en tu base de d
 - **Spring Testing** para Java y frameworks como Spring Boot.
 - **Testcontainers**: Ejecuta bases de datos reales dentro de entornos Docker para pruebas más completas.
 
----
 
 ### 6.4.3. Pruebas E2E (End-to-End)
 - Simulan el flujo completo de la aplicación desde el inicio hasta el final.
@@ -132,7 +123,6 @@ Una API que recibe datos desde un formulario HTML y los almacena en tu base de d
 - Por lo general, estas pruebas son más lentas comparadas con las unitarias o de integración.
 - 💡 **Briconsejo:** Inclúyelas para probar funciones críticas, pero no dependas exclusivamente de ellas.
 
----
 
 ## 6.5. Herramientas Fundamentales: El Kit de un Desarrollador Profesional
 
@@ -147,8 +137,6 @@ Ayudan a mantener estándares de estilo consistente en tu proyecto. Las reglas b
 ### 6.5.3. Pruebas de Cobertura: Jacoco (para Java)
 Cobertura es el porcentaje de tu programa que es ejecutado por pruebas automáticas. Herramientas como **Jacoco** ayudan a identificar qué partes del código necesitan más pruebas.
 
----
-
 ## 6.6. Automatización: QA en el CI/CD
 
 ### ¿Qué es CI/CD?
@@ -156,7 +144,6 @@ Es un proceso que asegura que todo pase automáticamente cuando haces cambios en
 1. **Continuous Integration (CI):** Cada commit lanza análisis y pruebas automáticas.
 2. **Continuous Delivery/Deployment (CD):** Tu código probado automáticamente llega a staging o producción.
 
----
 
 ## 6.7. Seguridad = Calidad
 
@@ -179,8 +166,6 @@ Nunca subas credenciales, claves privadas o contraseñas en tu repositorio. Util
 - Secretos en plataformas como GitHub o GitLab (secrets management).
 - Variables de entorno configuradas en el servidor o en el proveedor cloud.
 
----
-
 ## 6.8. Coste de detección en fases del desarrollo
 
 <div align="center">
@@ -194,10 +179,8 @@ Nunca subas credenciales, claves privadas o contraseñas en tu repositorio. Util
 
 </div>
 
-### 6.8.1. Reflexión
 💡 **Briconsejo:** Un bug detectado en producción no solo requiere tiempo de desarrollo para corregirse, sino que involucra reuniones de crisis, análisis de impacto, comunicación con clientes afectados, posible compensación y pérdida de confianza. Por eso, invertir en testing es siempre rentable.
 
----
 
 ## 6.9. Conclusión: QA para Profesionales del Futuro
 
